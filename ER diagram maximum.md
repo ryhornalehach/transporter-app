@@ -1,0 +1,11 @@
+[Users|first_name|last_name|address|city|state|zip|phone|profile_photo|hourly_rate|comments]
+[Pickups|name|pickup_time|appointment_time|comment|pickup_address|pickup_city|dropoff_address|dropoff_city|picked_up :boolean|dropped_off :boolean|price]
+[DriverDays|year|month|day]
+[Shifts|start_time|finish_time|travel_time]
+[Cars|comments|buy_price|color]
+
+[Users]->[Pickups]
+[Users]->[Shifts]
+[DriverDays]->[Shifts]
+[DriverDays]<-[Users]
+[Users]-[Cars]
