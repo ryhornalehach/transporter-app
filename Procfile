@@ -1,1 +1,1 @@
-web: node react/src/main.js
+web: babel-node react/src/main.js
