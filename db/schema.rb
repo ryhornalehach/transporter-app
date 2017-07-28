@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721020436) do
+ActiveRecord::Schema.define(version: 20170724220120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pickups", force: :cascade do |t|
+    t.string   "name",                               null: false
+    t.string   "pickup_time",                        null: false
+    t.string   "appointment_time", default: "0000A", null: false
+    t.string   "comment",          default: "",      null: false
+    t.string   "pickup_address",                     null: false
+    t.string   "pickup_city",                        null: false
+    t.string   "dropoff_address",                    null: false
+    t.string   "dropoff_city",                       null: false
+    t.boolean  "picked_up",        default: false,   null: false
+    t.boolean  "dropped_off",      default: false,   null: false
+    t.integer  "driver_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["driver_id"], name: "index_pickups_on_driver_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                                null: false
