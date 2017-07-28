@@ -7,7 +7,7 @@
     "node": "7.9.0"
   },
   "scripts": {
-    "heroku-postbuild": "NODE_ENV=production npm run webpack -- -p",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "test": "node_modules/.bin/karma start karma.conf.js",
     "start": "npm run webpack -- --watch",
     "webpack": "node_modules/.bin/webpack --config ./react/webpack.config.js"
