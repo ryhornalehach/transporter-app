@@ -1,12 +1,22 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
 User.create(first_name: 'John', last_name: 'Smith', address: '100 Main st.', city: 'Lowell', state: 'MA', zip: '01802', phone: '857-123-1234', email: 'jsmith@test.com', password: 'greg123')
 User.create(first_name: 'Jack', last_name: 'Sparrow', address: '99 Water st.', city: 'Watertown', state: 'MA', zip: '02340', phone: '617-123-1234', email: 'jsparrow@test.com', password: 'greg123')
 User.create(first_name: 'Sam', last_name: 'Brown', address: '10 Wheeler cir.', city: 'Stoughton', state: 'MA', zip: '02072', phone: '617-123-1111', email: 'sbrown@test.com', password: 'greg123')
+
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0600A', appointment_time: '0700A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0615A', appointment_time: '0645A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0700A', appointment_time: '0800A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0700A', appointment_time: '0730A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0800A', appointment_time: '0845A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0900A', appointment_time: '0930A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0900A', appointment_time: '1000A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0930A', appointment_time: '1015A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '1000A', appointment_time: '1045A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '1030A', appointment_time: '1100A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '1100A', appointment_time: '1115A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '1130A', appointment_time: '1200A', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '1200P', appointment_time: '0100P', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '1230P', appointment_time: '0100P', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0100P', appointment_time: '0145P', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0115P', appointment_time: '0200P', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0145P', appointment_time: '0215P', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
+Pickup.create(name: Faker::StarWars.character, pickup_time: '0200P', appointment_time: '0300P', comment: '', pickup_address: Faker::Address.street_address, pickup_city: Faker::Address.city, dropoff_address: Faker::Address.street_address, dropoff_city: Faker::Address.city)
