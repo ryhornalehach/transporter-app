@@ -1,1 +1,1 @@
-web: babel-node react/src/main.js
+web: bundle exec puma -p $PORT
