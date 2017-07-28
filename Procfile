@@ -1,1 +1,1 @@
-web: bin/boot
+web: node react/src/main.js
