@@ -1,10 +1,9 @@
 @import "materialize";
 // @import "*";
-//= require foundation
+.navbar-color {
+  background: #78909C;
+}
 
-// .top-bar {
-//   background: #92AD9F;
-// }
-// .top-bar li {
-//   background: #92AD9F;
-// }
+.navbar-color-dark {
+  background: #607D8B;
+}
