@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="col s12">
+        <h4><b>Edit User <%= @user.first_name.capitalize %></b></h4>
+      </div>
+    </div>
+
+    <%= form_for @user do |f| %>
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.text_field :first_name, type: "text", class: "validate", :required => true %>
+          <%= f.label :first_name, class: "active"%>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.text_field :last_name, type: "text", class: "validate", :required => true %>
+          <%= f.label :last_name ,class: "active"%>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :address, class: 'active' %>
+          <%= f.text_field :address %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :city, class: 'active' %>
+          <%= f.text_field :city %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :state, class: 'active' %>
+          <%= f.text_field :state %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :zip, class: 'active' %>
+          <%= f.text_field :zip %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :phone, class: 'active' %>
+          <%= f.text_field :phone %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :email, class: 'active' %>
+          <%= f.email_field :email , :required => true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <%= f.submit "Update User", class: "btn waves-effect waves-light navbar-color-dark" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,8 +1,20 @@
 <div class="row">
   <div class="col s12">
-    <h3>Hello <%= @user.first_name.capitalize %>!</h3>
+    <% if current_user && current_user.admin? %>
+      <ul><h5><b>Name:</b> <%= "#{@user.first_name} #{@user.last_name}" %></h5></ul>
+      <ul><h5><b>Address:</b> <%= "#{@user.address}, #{@user.city}, #{@user.state}, #{@user.zip}" %></h5></ul>
+      <ul><h5><b>Phone:</b> <%= @user.phone %></h5></ul>
+      <ul><h5><b>Email:</b> <%= @user.email %></h5></ul>
+    <%else%>
+      <div class="row">
+        <div class="col s12">
+          <h3>Hello <%= @user.first_name.capitalize %>!</h3>
+        </div>
+      </div>
+    <%end%>
   </div>
 </div>
+
 <div class="row">
   <div class="col s12">
     <% if current_user && current_user.admin? %>

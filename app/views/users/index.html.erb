@@ -1,0 +1,22 @@
+<h3>Hello Admin! </h3>
+<table id = "users" class="display nowrap" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to "#{user.first_name} #{user.last_name}", user %></td>
+        <td><%= link_to user.email, user %></td>
+        <td><%= link_to "Edit User", edit_user_path(user), class: 'waves-effect waves-light btn navbar-color-dark' %></td>
+        <td><%= link_to "Delete User", user_path(user), method: :delete, data: {confirm: "Are You Sure?"}, class: 'waves-effect waves-light btn red' %></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+<%= will_paginate @users %>

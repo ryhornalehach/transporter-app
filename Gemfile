@@ -9,7 +9,7 @@ gem 'jquery-rails'
 gem 'listen'
 gem "devise"
 gem 'materialize-sass'
-gem "faker", github: "stympy/faker"
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'capybara'
@@ -18,6 +18,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'shoulda'
   gem 'valid_attribute'
+  gem "faker", github: "stympy/faker"
 end
 
 group :test do
