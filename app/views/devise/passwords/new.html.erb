@@ -8,8 +8,10 @@
     <%= f.email_field :email, autofocus: true %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+  <div class="row">
+    <div class="col s12">
+      <%= f.submit "Send me reset password instructions", class: "btn waves-effect waves-light blue-grey" %>
+    </div>
   </div>
 <% end %>
 
