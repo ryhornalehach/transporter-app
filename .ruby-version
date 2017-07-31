@@ -1,0 +1,1 @@
+rvm use $(cat ruby-2.3.3) --install

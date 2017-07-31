@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { Route, Switch, browserHistory } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
+import { BrowserRouter, Link } from 'react-router-dom';
+// import Pickup from './Pickup'
+import Pickups from './Pickups'
+
+const history = createBrowserHistory();
 
 class App extends Component {
   constructor(props){
@@ -10,7 +17,11 @@ class App extends Component {
   render() {
     return(
       <div>
-        <h3>Hi from React!</h3>
+        <BrowserRouter history={history}>
+          <Switch>
+            <Route path='/pickups' component={Pickups} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   };
