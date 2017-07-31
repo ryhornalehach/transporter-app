@@ -36,13 +36,22 @@ class Pickups extends Component {
 
   render() {
     let pickups;
+
     if (this.state.showUser) {
       pickups = this.state.pickups.map( (pickup, index) => {
+        let cardClassName;
+        if (pickup.picked_up && pickup.dropped_off) {
+          cardClassName = 'dropped_off';
+        } else if (pickup.picked_up) {
+          cardClassName = 'picked_up';
+        }
+
         return(
           <PickupIndexTile
-          key={index}
-          id={pickup.id}
-          pickup={pickup}
+            key={index}
+            id={pickup.id}
+            pickup={pickup}
+            cardClassName={cardClassName}
           />
         )
       })
