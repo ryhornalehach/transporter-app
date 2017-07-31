@@ -7,7 +7,7 @@ class Pickups extends Component {
     super(props)
     this.state = {
       pickups: [],
-      currentUserId: null,
+      currentUser: {},
       showUser: false
     }
   }
@@ -18,19 +18,23 @@ class Pickups extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ showUser: body.auth, currentUserId: body.id })
+      this.setState({ showUser: body.auth, currentUser: body.user })
     })
 
     fetch('/api/v1/pickups')
     .then(response => response.json())
     .then(body => {
-      let selectedPickups = [];
-      body.forEach((pickup) => {
-        if (pickup.driver_id == this.state.currentUserId) {
-          selectedPickups.unshift(pickup)
-        }
-      })
-      this.setState({ pickups: selectedPickups})
+      if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+        this.setState({ pickups: body})
+      } else {
+        let selectedPickups = [];
+        body.forEach((pickup) => {
+          if (pickup.driver_id === this.state.currentUser.id) {
+            selectedPickups.unshift(pickup)
+          }
+        })
+        this.setState({ pickups: selectedPickups})
+      }
     })
   }
 

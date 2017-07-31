@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PickupTile from '../components/PickupTile'
+import PickupTile from '../components/PickupTile';
+import AssignDrivers from './AssignDrivers';
 
 class Pickup extends Component {
   constructor(props) {
@@ -8,10 +9,12 @@ class Pickup extends Component {
     this.state = {
       pickupInfo: {},
       pickupId: null,
-      currentUserId: null,
+      currentUser: {},
       pickedUp: false,
       droppedOff: false,
-      showUser:false
+      showUser: false,
+      assignedDriver: null,
+      error: null
     }
     this.handlePickupButton = this.handlePickupButton.bind(this);
     this.handleDropoffButton = this.handleDropoffButton.bind(this);
@@ -23,7 +26,7 @@ class Pickup extends Component {
     fetch(`/api/v1/pickups/${pickupId}`)
     .then(response => response.json())
     .then(pickup => {
-      this.setState({ pickupInfo: pickup, pickupId: pickupId, pickedUp: pickup.picked_up, droppedOff: pickup.dropped_off })
+      this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, assignedDriver: pickup.driver })
     })
 
     fetch('/api/v1/users',{
@@ -31,7 +34,7 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ showUser: body.auth, currentUserId: body.id })
+      this.setState({ showUser: body.auth, currentUser: body.user })
     })
   }
 
@@ -44,7 +47,11 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(body =>{
-      this.setState({ pickedUp: body.picked_up, droppedOff: body.dropped_off })
+      if (body.error) {
+        this.setState({ error: body.error })
+      } else {
+        this.setState({ pickedUp: body.picked_up, droppedOff: body.dropped_off })
+      }
     })
   }
 
@@ -62,7 +69,7 @@ class Pickup extends Component {
   }
 
   render() {
-    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile;
+    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, assignDriver;
 
     if (this.state.droppedOff){
       buttonConfirmDropoff = <button type="button" className="btn waves-effect waves-light red" onClick={this.handleDropoffButton}>Not dropped off yet?</button>
@@ -77,28 +84,39 @@ class Pickup extends Component {
       buttonConfirmDropoff = null;
     }
 
-    if (this.state.currentUserId == this.state.pickupInfo.driver_id) {
+    if (this.state.currentUser.id == this.state.pickupInfo.driver_id || this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
       pickupTile = <PickupTile
-        pickupInfo={this.state.pickupInfo}
-        showUser={this.state.showUser}
-        pickedUp={this.state.pickedUp}
-        droppedOff={this.state.droppedOff}
-        buttonConfirmPickup={buttonConfirmPickup}
-        buttonConfirmDropoff={buttonConfirmDropoff}
-        handlePickupButton={this.handlePickupButton}
-        handleDropoffButton={this.handleDropoffButton}
-      />
+                    pickupInfo={this.state.pickupInfo}
+                    showUser={this.state.showUser}
+                    pickedUp={this.state.pickedUp}
+                    droppedOff={this.state.droppedOff}
+                    buttonConfirmPickup={buttonConfirmPickup}
+                    buttonConfirmDropoff={buttonConfirmDropoff}
+                    handlePickupButton={this.handlePickupButton}
+                    handleDropoffButton={this.handleDropoffButton}
+                  />
     } else {
       pickupTile = 'You are not authorized'
     }
 
+    if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+      assignDriver = <AssignDrivers
+                      assignedDriver={this.state.assignedDriver}
+                    />
+    } else {
+      assignDriver = null;
+    }
 
     return(
       <div>
+        <div className="red-text">{this.state.error}</div>
         {pickupTile}
         <div className="row">
           <div className="col s12 l6">
             <Link to='/pickups' className="btn waves-effect waves-light navbar-color-dark">Back to all clients</Link>
+          </div>
+          <div className="col s12 l6">
+            {assignDriver}
           </div>
         </div>
       </div>
