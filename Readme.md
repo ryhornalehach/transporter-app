@@ -1,3 +1,5 @@
+![Build Status](https://codeship.com/projects/6c375940-5823-0135-2444-6619bdfa7b53/status?branch=master)
+![Coverage Status](https://coveralls.io/repos/github/ryhornalehach/transporter-app/badge.svg?branch=master)
 # Developed by: Ryhor (Greg) Nalehach
 # Hi, it's Greg. I have created an application
 
