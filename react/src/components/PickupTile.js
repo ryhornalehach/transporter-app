@@ -31,7 +31,7 @@ const PickupTile = props => {
             <div className="card-action">
 
               <div className="row">
-                <div className="col s5">
+                <div className="col s5 large-text">
                   <b>{pickupText}</b>
                 </div>
                 <div className="col s7">
@@ -40,7 +40,7 @@ const PickupTile = props => {
               </div>
 
               <div className="row">
-                <div className="col s5">
+                <div className="col s5 large-text">
                   <b>{dropoffText}</b>
                 </div>
                 <div className="col s7">
