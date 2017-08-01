@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PickupTile from '../components/PickupTile';
 import AssignDrivers from './AssignDrivers';
+import MapComponent from '../components/MapComponent';
 
 class Pickup extends Component {
   constructor(props) {
@@ -106,6 +107,7 @@ class Pickup extends Component {
     } else {
       assignDriver = null;
     }
+    let address = '1250 Hancock st. Quincy, MA';
 
     return(
       <div>
@@ -117,6 +119,13 @@ class Pickup extends Component {
           </div>
           <div className="col s12 l6">
             {assignDriver}
+          </div>
+          <div className="row">
+            <div className="col s12">
+              <MapComponent
+                address={address}
+              />
+            </div>
           </div>
         </div>
       </div>
