@@ -70,7 +70,7 @@ class Pickup extends Component {
   }
 
   render() {
-    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, assignDriver;
+    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, assignDriver, origin, destination;
 
     if (this.state.droppedOff){
       buttonConfirmDropoff = <button type="button" className="btn waves-effect waves-light red" onClick={this.handleDropoffButton}>Not dropped off yet?</button>
@@ -107,7 +107,9 @@ class Pickup extends Component {
     } else {
       assignDriver = null;
     }
-    let address = '1250 Hancock st. Quincy, MA';
+
+    origin = `${this.state.pickupInfo.pickup_address}, ${this.state.pickupInfo.pickup_city}`
+    destination = `${this.state.pickupInfo.dropoff_address}, ${this.state.pickupInfo.dropoff_city}`
 
     return(
       <div>
@@ -123,7 +125,8 @@ class Pickup extends Component {
           <div className="row">
             <div className="col s12">
               <MapComponent
-                address={address}
+                  origin={origin}
+                  destination={destination}
               />
             </div>
           </div>
