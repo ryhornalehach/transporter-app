@@ -2,19 +2,17 @@ import React from 'react';
 
 const PickupTile = props => {
   let addressInformation, typeOfAddress = '';
-  if (props.pickupInfo.picked_up) {
-    addressInformation = `${props.pickupInfo.dropoff_address}, ${props.pickupInfo.dropoff_city}`;
-    typeOfAddress = 'Drop off'
-  } else {
-    addressInformation = `${props.pickupInfo.pickup_address}, ${props.pickupInfo.pickup_city}`;
-    typeOfAddress = 'Pickup'
-  }
+
 
   let pickupText, dropoffText;
   if (props.pickedUp) {
     pickupText = 'Client was successfully picked up'
+    addressInformation = `${props.pickupInfo.dropoff_address}, ${props.pickupInfo.dropoff_city}`;
+    typeOfAddress = 'Drop off'
   } else {
     pickupText = 'Client has not been picked up yet'
+    addressInformation = `${props.pickupInfo.pickup_address}, ${props.pickupInfo.pickup_city}`;
+    typeOfAddress = 'Pickup'
   }
   if (props.droppedOff) {
     dropoffText = 'Client was successfully dropped off'

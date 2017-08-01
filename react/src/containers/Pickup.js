@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PickupTile from '../components/PickupTile';
 import AssignDrivers from './AssignDrivers';
+import MapComponent from '../components/MapComponent';
 
 class Pickup extends Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class Pickup extends Component {
   }
 
   render() {
-    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, assignDriver;
+    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, assignDriver, origin, destination;
 
     if (this.state.droppedOff){
       buttonConfirmDropoff = <button type="button" className="btn waves-effect waves-light red" onClick={this.handleDropoffButton}>Not dropped off yet?</button>
@@ -107,6 +108,9 @@ class Pickup extends Component {
       assignDriver = null;
     }
 
+    origin = `${this.state.pickupInfo.pickup_address}, ${this.state.pickupInfo.pickup_city}`
+    destination = `${this.state.pickupInfo.dropoff_address}, ${this.state.pickupInfo.dropoff_city}`
+
     return(
       <div>
         <div className="red-text">{this.state.error}</div>
@@ -117,6 +121,14 @@ class Pickup extends Component {
           </div>
           <div className="col s12 l6">
             {assignDriver}
+          </div>
+          <div className="row">
+            <div className="col s12">
+              <MapComponent
+                  origin={origin}
+                  destination={destination}
+              />
+            </div>
           </div>
         </div>
       </div>

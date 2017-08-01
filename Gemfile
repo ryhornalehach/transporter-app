@@ -14,6 +14,7 @@ gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'capybara'
+  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'pry-rails'
