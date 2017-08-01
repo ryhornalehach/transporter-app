@@ -15,6 +15,7 @@ class Pickup extends Component {
       droppedOff: false,
       showUser: false,
       assignedDriver: null,
+      allDrivers: [],
       error: null
     }
     this.handlePickupButton = this.handlePickupButton.bind(this);
@@ -35,7 +36,7 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ showUser: body.auth, currentUser: body.user })
+      this.setState({ allDrivers: body.allDrivers, showUser: body.auth, currentUser: body.user })
     })
   }
 
@@ -87,14 +88,14 @@ class Pickup extends Component {
 
     if (this.state.currentUser.id == this.state.pickupInfo.driver_id || this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
       pickupTile = <PickupTile
-                    pickupInfo={this.state.pickupInfo}
-                    showUser={this.state.showUser}
-                    pickedUp={this.state.pickedUp}
-                    droppedOff={this.state.droppedOff}
-                    buttonConfirmPickup={buttonConfirmPickup}
-                    buttonConfirmDropoff={buttonConfirmDropoff}
-                    handlePickupButton={this.handlePickupButton}
-                    handleDropoffButton={this.handleDropoffButton}
+                        pickupInfo={this.state.pickupInfo}
+                        showUser={this.state.showUser}
+                        pickedUp={this.state.pickedUp}
+                        droppedOff={this.state.droppedOff}
+                        buttonConfirmPickup={buttonConfirmPickup}
+                        buttonConfirmDropoff={buttonConfirmDropoff}
+                        handlePickupButton={this.handlePickupButton}
+                        handleDropoffButton={this.handleDropoffButton}
                   />
     } else {
       pickupTile = 'You are not authorized'
@@ -102,7 +103,9 @@ class Pickup extends Component {
 
     if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
       assignDriver = <AssignDrivers
-                      assignedDriver={this.state.assignedDriver}
+                        assignedDriver={this.state.assignedDriver}
+                        allDrivers={this.state.allDrivers}
+                        currentCleintId={this.state.pickupId}
                     />
     } else {
       assignDriver = null;
@@ -125,8 +128,8 @@ class Pickup extends Component {
           <div className="row">
             <div className="col s12">
               <MapComponent
-                  origin={origin}
-                  destination={destination}
+                    origin={origin}
+                    destination={destination}
               />
             </div>
           </div>
