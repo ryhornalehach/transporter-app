@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PickupIndexTile from '../components/PickupIndexTile'
+import SearchInput, {createFilter} from 'react-search-input'
+
+const KEYS_TO_FILTERS = ['name', 'comment', 'pickup_city', 'pickup_address', 'dropoff_city', 'dropoff_address', 'pickup_time']
 
 class Pickups extends Component {
   constructor(props) {
@@ -8,8 +11,15 @@ class Pickups extends Component {
     this.state = {
       pickups: [],
       currentUser: {},
-      showUser: false
+      showUser: false,
+      searchQuery: '',
+      searchTerm: ''
     }
+    this.searchUpdated = this.searchUpdated.bind(this);
+  }
+
+  searchUpdated (term) {
+    this.setState({ searchTerm: term })
   }
 
   componentDidMount() {
@@ -24,7 +34,9 @@ class Pickups extends Component {
     fetch('/api/v1/pickups')
     .then(response => response.json())
     .then(body => {
+      // debugger
       if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+
         this.setState({ pickups: body})
       } else {
         let selectedPickups = [];
@@ -40,9 +52,10 @@ class Pickups extends Component {
 
   render() {
     let pickups;
+    let filteredClients = this.state.pickups.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     if (this.state.showUser) {
-      pickups = this.state.pickups.map( (pickup, index) => {
+      pickups = filteredClients.map( (pickup, index) => {
         let cardClassName;
         if (pickup.picked_up && pickup.dropped_off) {
           cardClassName = 'dropped_off';
@@ -67,6 +80,7 @@ class Pickups extends Component {
       <div>
         <div className="row">
           <div className="col s12">
+            <SearchInput className="search-input" onChange={this.searchUpdated} />
             {pickups}
           </div>
         </div>
