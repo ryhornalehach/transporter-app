@@ -4,7 +4,7 @@ const PickupTile = props => {
   let addressInformation, typeOfAddress = '';
 
 
-  let pickupText, dropoffText;
+  let pickupText, dropoffText, link;
   if (props.pickedUp) {
     pickupText = 'Client was successfully picked up'
     addressInformation = `${props.pickupInfo.dropoff_address}, ${props.pickupInfo.dropoff_city}`;
@@ -19,6 +19,7 @@ const PickupTile = props => {
   } else {
     dropoffText = 'Client has not been dropped off yet'
   }
+  link = `https://www.google.com/maps/place/${addressInformation}`
 
   return (
     <div className="row">
@@ -27,7 +28,7 @@ const PickupTile = props => {
           <div className="card-content">
             <span className="card-title">{props.pickupInfo.name}</span>
             <p><b>At: </b>{props.pickupInfo.pickup_time} &nbsp; <b>Comments: </b>{props.pickupInfo.comment}</p>
-            <p><b>{typeOfAddress} address: </b>{addressInformation}</p>
+            <p><b>{typeOfAddress} address: </b><a href={link}>{addressInformation}</a></p>
             <div className="card-action">
 
               <div className="row">
