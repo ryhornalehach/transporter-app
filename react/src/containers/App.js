@@ -4,6 +4,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { BrowserRouter, Link } from 'react-router-dom';
 import Pickup from './Pickup'
 import Pickups from './Pickups'
+import Drivers from './Drivers'
+import Driver from './Driver'
 
 const history = createBrowserHistory();
 
@@ -21,6 +23,8 @@ class App extends Component {
           <Switch>
             <Route exact path='/pickups' component={Pickups} />
             <Route exact path='/pickups/:id' component={Pickup} />
+            <Route exact path='/drivers' component={Drivers} />
+            <Route exact path='/drivers/:id' component={Driver} />
           </Switch>
         </BrowserRouter>
       </div>
