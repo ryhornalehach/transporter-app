@@ -17,6 +17,20 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def show
+    if current_user
+      if current_user.role === 'admin' || current_user.role === 'manager'
+        driver = User.find(params[:id])
+        clients = Pickup.where(driver_id: driver.id)
+        render json: { auth: true, current_user: current_user, driver: driver, clients: clients, error: nil }
+      else
+        render json: { auth: false, user: nil, driver: nil, clients: nil, error: 'You are not authorized' }
+      end
+    else
+      render json: { auth: false, user: nil, driver: nil, clients: nil, error: 'You are not authorized' }
+    end
+  end
+
   def update
     data = JSON.parse(request.body.read)
     new_driver = data['selectedDriverId']

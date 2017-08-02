@@ -54,8 +54,7 @@ class AssignForm extends Component {
           <option key={name} value={driver.id} >{name}</option>
       )
     })
-    // debugger
-
+// <a href={`/drivers/${this.state.assignedDriver.id}`}>{this.state.assignedDriverText}</a>
     return(
       <div>
         <div className="large-text"><b>Assigned driver: </b>{this.state.assignedDriverText}</div>
