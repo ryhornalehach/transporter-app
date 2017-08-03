@@ -1,5 +1,5 @@
 ![Build Status](https://codeship.com/projects/6c375940-5823-0135-2444-6619bdfa7b53/status?branch=master)
-![Coverage Status](https://coveralls.io/repos/github/ryhornalehach/transporter-app/badge.svg?branch=master)
+![Coverage Status](https://coveralls.io/repos/github/ryhornalehach/transporter-app/badge.svg?branch=master) 
 ![Code Climate](https://codeclimate.com/github/ryhornalehach/transporter-app.png)
 
 # Developed by: Ryhor (Greg) Nalehach
