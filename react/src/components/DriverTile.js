@@ -3,17 +3,7 @@ import PickupIndexTile from './PickupIndexTile'
 
 const DriverTile = props => {
 
-  // let clients = props.clients.map( (client) => {
-  //   return(
-  //     <li key={client.id}>
-  //       At: {client.pickup_time}.
-  //       Name: <a href={`/pickups/${client.id}`}>{client.name}</a>.
-  //       From: {client.pickup_address}, {client.pickup_city}.
-  //       To: {client.dropoff_address}, {client.dropoff_city}
-  //     </li>
-  //   )
   let pickups;
-// debugger
   pickups = props.clients.map( (pickup, index) => {
     let cardClassName;
     if (pickup.picked_up && pickup.dropped_off) {

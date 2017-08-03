@@ -22,7 +22,7 @@ class Pickup extends Component {
     this.handleDropoffButton = this.handleDropoffButton.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let idRegex = /[0-9]+\/{0,1}$/
     let pickupId = this.props.location.pathname.match(idRegex)[0]
     fetch(`/api/v1/pickups/${pickupId}`,{
@@ -30,7 +30,7 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(pickup => {
-      // debugger
+
       this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, assignedDriver: pickup.driver })
     })
 
@@ -39,7 +39,10 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ allDrivers: body.allDrivers, showUser: body.auth, currentUser: body.user })
+      let allDriversList = body.allDrivers
+      let empty = { id: null, first_name: '--', last_name: '--' }
+      allDriversList.unshift(empty);
+      this.setState({ allDrivers: allDriversList, showUser: body.auth, currentUser: body.user })
     })
   }
 
@@ -103,11 +106,11 @@ class Pickup extends Component {
     } else {
       pickupTile = 'You are not authorized'
     }
-// debugger
+
     if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
       form = <AssignForm
                   allDrivers={this.state.allDrivers}
-                  currentCleintId={this.state.pickupId}
+                  currentClientId={this.state.pickupId}
                   assignedDriver={this.state.assignedDriver}
               />
     } else {
