@@ -36,7 +36,6 @@ class Pickups extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      // debugger
       if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
 
         this.setState({ pickups: body})

@@ -149,7 +149,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 #  Acceptance Criteria:
 #  [x] If I am logged in as an admin, the controller sends me back the information of the driver
       it "should should return driver information" do
-        data = { "selectedDriverId"=>user_2.id, "currentCleintId"=>client_2.id }.to_json
+        data = { "selectedDriverId"=>user_2.id, "currentClientId"=>client_2.id }.to_json
         sign_in admin
 
         put(:update , params: { id: user_2.id } , body: data)
@@ -164,7 +164,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
 #  [x] If I am logged in as an admin, I can assign a driver for clients
       xit "should update client's info and assign a driver to the client" do
-        data = { "selectedDriverId"=>user_2.id, "currentCleintId"=>client_2.id }.to_json
+        data = { "selectedDriverId"=>user_2.id, "currentClientId"=>client_2.id }.to_json
         sign_in admin
         put(:update , params: { id: user_2.id } , body: data)
 

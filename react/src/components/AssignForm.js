@@ -5,26 +5,12 @@ class AssignForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      assignedDriverText: 'N/A',
-      assignedDriver: null,
-      selectedDriverId: null,
-      allDriversList: []
+      assignedDriverText: `${this.props.assignedDriver.first_name} ${this.props.assignedDriver.last_name}`,
+      assignedDriver: this.props.assignedDriver,
+      selectedDriverId: 0,
     }
     this.handleForm = this.handleForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    let allDriversList = this.props.allDrivers
-    let empty = { id: null, first_name: '--', last_name: '--' }
-    allDriversList.unshift(empty);
-    this.setState({ allDriversList: allDriversList })
-    // debugger;
-
-    if (this.props.assignedDriver) {
-      let newText = `${this.props.assignedDriver.first_name} ${this.props.assignedDriver.last_name}`;
-      this.setState({ assignedDriver: this.props.assignedDriver, assignedDriverText: newText, selectedDriverId: this.props.assignedDriver.id })
-    }
   }
 
   handleChange(event) {
@@ -36,7 +22,7 @@ class AssignForm extends Component {
     fetch(`/api/v1/users/${this.state.selectedDriverId}/`, {
       method: 'PATCH',
       credentials: "same-origin",
-      body: JSON.stringify({ selectedDriverId: this.state.selectedDriverId, currentCleintId: this.props.currentCleintId })
+      body: JSON.stringify({ selectedDriverId: this.state.selectedDriverId, currentClientId: this.props.currentClientId })
     })
     .then(response => response.json())
     .then(body => {
@@ -46,8 +32,9 @@ class AssignForm extends Component {
   }
 
   render() {
-// debugger
-    let allDrivers = this.state.allDriversList.map( (driver) => {
+
+
+    let allDrivers = this.props.allDrivers.map( (driver) => {
       let name = `${driver.first_name} ${driver.last_name}`
       return (
           <option key={name} value={driver.id} >{name}</option>
