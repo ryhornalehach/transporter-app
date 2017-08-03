@@ -2,13 +2,25 @@ class Api::V1::PickupsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    render json: Pickup.order(pickup_time: :asc)
+    if current_user
+      render json: Pickup.order(pickup_time: :asc)
+    else
+      render json: { error: 'You are not authorized' }
+    end
   end
 
   def show
+    if current_user
     pickup = Pickup.find(params[:id])
-    driver = pickup.driver
-    render json: { 'pickup': pickup, 'driver': driver }
+      if pickup.driver_id == current_user.id || current_user.role == 'admin' || current_user.role == 'manager'
+        driver = pickup.driver
+        render json: { 'pickup': pickup, 'driver': driver }
+      else
+        render json: { error: 'You are not authorized' }
+      end
+    else
+      render json: { error: 'You are not authorized' }
+    end
   end
 
   def update

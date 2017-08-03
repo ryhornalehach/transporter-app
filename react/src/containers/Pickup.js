@@ -22,12 +22,15 @@ class Pickup extends Component {
     this.handleDropoffButton = this.handleDropoffButton.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let idRegex = /[0-9]+\/{0,1}$/
     let pickupId = this.props.location.pathname.match(idRegex)[0]
-    fetch(`/api/v1/pickups/${pickupId}`)
+    fetch(`/api/v1/pickups/${pickupId}`,{
+      credentials: "same-origin"
+    })
     .then(response => response.json())
     .then(pickup => {
+      // debugger
       this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, assignedDriver: pickup.driver })
     })
 

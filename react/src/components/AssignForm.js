@@ -19,7 +19,8 @@ class AssignForm extends Component {
     let empty = { id: null, first_name: '--', last_name: '--' }
     allDriversList.unshift(empty);
     this.setState({ allDriversList: allDriversList })
-    // debugger
+    // debugger;
+
     if (this.props.assignedDriver) {
       let newText = `${this.props.assignedDriver.first_name} ${this.props.assignedDriver.last_name}`;
       this.setState({ assignedDriver: this.props.assignedDriver, assignedDriverText: newText, selectedDriverId: this.props.assignedDriver.id })
@@ -27,13 +28,11 @@ class AssignForm extends Component {
   }
 
   handleChange(event) {
-    // debugger
     this.setState({ selectedDriverId: event.target.value})
   }
 
   handleForm(event) {
     event.preventDefault();
-    // debugger
     fetch(`/api/v1/users/${this.state.selectedDriverId}/`, {
       method: 'PATCH',
       credentials: "same-origin",
@@ -54,7 +53,6 @@ class AssignForm extends Component {
           <option key={name} value={driver.id} >{name}</option>
       )
     })
-// <a href={`/drivers/${this.state.assignedDriver.id}`}>{this.state.assignedDriverText}</a>
     return(
       <div>
         <div className="large-text"><b>Assigned driver: </b>{this.state.assignedDriverText}</div>

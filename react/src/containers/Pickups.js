@@ -31,7 +31,9 @@ class Pickups extends Component {
       this.setState({ showUser: body.auth, currentUser: body.user })
     })
 
-    fetch('/api/v1/pickups')
+    fetch('/api/v1/pickups',{
+      credentials: "same-origin"
+    })
     .then(response => response.json())
     .then(body => {
       // debugger
