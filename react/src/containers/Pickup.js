@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PickupTile from '../components/PickupTile';
-import AssignDrivers from './AssignDrivers';
+import AssignForm from '../components/AssignForm';
 import MapComponent from '../components/MapComponent';
 
 class Pickup extends Component {
@@ -22,12 +22,15 @@ class Pickup extends Component {
     this.handleDropoffButton = this.handleDropoffButton.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let idRegex = /[0-9]+\/{0,1}$/
     let pickupId = this.props.location.pathname.match(idRegex)[0]
-    fetch(`/api/v1/pickups/${pickupId}`)
+    fetch(`/api/v1/pickups/${pickupId}`,{
+      credentials: "same-origin"
+    })
     .then(response => response.json())
     .then(pickup => {
+      // debugger
       this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, assignedDriver: pickup.driver })
     })
 
@@ -71,7 +74,7 @@ class Pickup extends Component {
   }
 
   render() {
-    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, assignDriver, origin, destination;
+    let buttonConfirmPickup, form, buttonConfirmDropoff, pickupTile, origin, destination;
 
     if (this.state.droppedOff){
       buttonConfirmDropoff = <button type="button" className="btn waves-effect waves-light red" onClick={this.handleDropoffButton}>Not dropped off yet?</button>
@@ -100,15 +103,15 @@ class Pickup extends Component {
     } else {
       pickupTile = 'You are not authorized'
     }
-
+// debugger
     if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
-      assignDriver = <AssignDrivers
-                        assignedDriver={this.state.assignedDriver}
-                        allDrivers={this.state.allDrivers}
-                        currentCleintId={this.state.pickupId}
-                    />
+      form = <AssignForm
+                  allDrivers={this.state.allDrivers}
+                  currentCleintId={this.state.pickupId}
+                  assignedDriver={this.state.assignedDriver}
+              />
     } else {
-      assignDriver = null;
+      form = null;
     }
 
     origin = `${this.state.pickupInfo.pickup_address}, ${this.state.pickupInfo.pickup_city}`
@@ -123,7 +126,7 @@ class Pickup extends Component {
             <Link to='/pickups' className="btn waves-effect waves-light navbar-color-dark">Back to all clients</Link>
           </div>
           <div className="col s12 l6">
-            {assignDriver}
+            {form}
           </div>
           <div className="row">
             <div className="col s12">
