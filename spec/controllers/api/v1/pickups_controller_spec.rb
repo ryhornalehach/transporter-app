@@ -174,7 +174,7 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
       end
 
 #  [x] If I am not logged in, I can't update the picked_up state of client that is not assigned to me
-      xit "should not update client information" do
+      it "should not update client information" do
         data = { state: true, stateType: 'picked_up' }.to_json
         put(:update , params: { id: client_1.id } , body: data)
 
