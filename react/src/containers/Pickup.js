@@ -39,10 +39,14 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      let allDriversList = body.allDrivers
-      let empty = { id: null, first_name: '--', last_name: '--' }
-      allDriversList.unshift(empty);
-      this.setState({ allDrivers: allDriversList, showUser: body.auth, currentUser: body.user })
+      if (body.allDrivers) {
+        let allDriversList = body.allDrivers
+        let empty = { id: null, first_name: '--', last_name: '--' }
+        allDriversList.unshift(empty);
+        this.setState({ allDrivers: allDriversList, showUser: body.auth, currentUser: body.user })
+      } else {
+        this.setState({ showUser: body.auth, currentUser: body.user })
+      }
     })
   }
 
