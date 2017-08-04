@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
     if current_user
       if current_user.role === 'admin' || current_user.role === 'manager'
         driver = User.find(params[:id])
-        clients = Pickup.where(driver_id: driver.id)
+        clients = Pickup.where(driver_id: driver.id).order(pickup_time: :asc)
         render json: { auth: true, current_user: current_user, driver: driver, clients: clients, error: nil }
       else
         render json: { auth: false, user: nil, driver: nil, clients: nil, error: 'You are not authorized' }
@@ -32,12 +32,15 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    # binding.pry
     if current_user.role === 'admin' || current_user.role === 'manager'
       data = JSON.parse(request.body.read)
       new_driver = data['selectedDriverId']
       pickup = Pickup.find(data['currentClientId'])
-      pickup.driver_id = new_driver
+      if User.find(new_driver)
+        pickup.driver_id = new_driver
+      else
+        pickup.driver_id = nil
+      end
       pickup.save
       render json: pickup.driver
     else

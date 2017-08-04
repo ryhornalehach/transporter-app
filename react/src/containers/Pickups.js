@@ -36,18 +36,7 @@ class Pickups extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
-
         this.setState({ pickups: body})
-      } else {
-        let selectedPickups = [];
-        body.forEach((pickup) => {
-          if (pickup.driver_id === this.state.currentUser.id) {
-            selectedPickups.unshift(pickup)
-          }
-        })
-        this.setState({ pickups: selectedPickups})
-      }
     })
   }
 

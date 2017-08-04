@@ -28,6 +28,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id]).destroy
+    # UsersMailer.deleted_user(@user).deliver
     redirect_to users_path, notice: "User Deleted"
   end
 

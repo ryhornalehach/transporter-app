@@ -26,9 +26,9 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
 
     describe 'GET#index' do
 #  Acceptance Criteria:
-#  [x] If I am signed in as a user, I can get the list of all clients
-      it ('should return all pickups for user') do
-        sign_in user_1
+#  [x] If I am signed in as an admin, I can get the list of all clients
+      it ('should return all pickups for admin') do
+        sign_in admin
         get :index
 
         returned_json = JSON.parse(response.body)
@@ -39,6 +39,18 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
         expect(returned_json[0]['pickup_address']).to eq client_1.pickup_address
         expect(returned_json[1]['name']).to eq client_2.name
         expect(returned_json[1]['pickup_address']).to eq client_2.pickup_address
+      end
+#  [x] If I am signed in as a user, I can get the list of assigned to me clients
+      it ('should only return assigned to the driver clients') do
+        sign_in user_1
+        get :index
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq("application/json")
+        expect(returned_json.length).to eq 1
+        expect(returned_json[0]['name']).to eq client_1.name
+        expect(returned_json[0]['pickup_address']).to eq client_1.pickup_address
       end
 
 #  [x] If I am not signed in as a user, I can't get the list of the clients

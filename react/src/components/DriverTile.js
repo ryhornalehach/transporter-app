@@ -11,7 +11,6 @@ const DriverTile = props => {
     } else if (pickup.picked_up) {
       cardClassName = 'picked_up';
     }
-
     return(
       <PickupIndexTile
         key={index}

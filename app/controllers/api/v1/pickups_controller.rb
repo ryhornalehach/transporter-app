@@ -3,7 +3,11 @@ class Api::V1::PickupsController < ApplicationController
 
   def index
     if current_user
-      render json: Pickup.order(pickup_time: :asc)
+      if current_user.role == 'admin' || current_user.role == 'manager'
+        render json: Pickup.order(pickup_time: :asc)
+      else
+        render json: Pickup.where(driver_id: current_user.id).order(pickup_time: :asc)
+      end
     else
       render json: { error: 'You are not authorized' }
     end
