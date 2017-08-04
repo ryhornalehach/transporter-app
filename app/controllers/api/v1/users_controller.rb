@@ -32,17 +32,21 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if current_user.role === 'admin' || current_user.role === 'manager'
-      data = JSON.parse(request.body.read)
-      new_driver = data['selectedDriverId']
-      pickup = Pickup.find(data['currentClientId'])
-      if User.find(new_driver)
-        pickup.driver_id = new_driver
+    if current_user
+      if current_user.role === 'admin' || current_user.role === 'manager'
+        data = JSON.parse(request.body.read)
+        new_driver = data['selectedDriverId']
+        pickup = Pickup.find(data['currentClientId'])
+        if User.find(new_driver)
+          pickup.driver_id = new_driver
+        else
+          pickup.driver_id = nil
+        end
+        pickup.save
+        render json: pickup.driver
       else
-        pickup.driver_id = nil
+        render json: { auth: false, user: nil, driver: nil, clients: nil, error: 'You are not authorized' }
       end
-      pickup.save
-      render json: pickup.driver
     else
       render json: { auth: false, user: nil, driver: nil, clients: nil, error: 'You are not authorized' }
     end

@@ -45,6 +45,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(returned_json['allDrivers'][0]['phone']).to eq user_1.phone
       end
 
+#  [x] If I am logged in as a driver, I can't get the list of all users
+      it ('should not return list of users if a user is not signed in') do
+        get :index
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq("application/json")
+        expect(returned_json.length).to eq 2
+        expect(returned_json['auth']).to eq false
+        expect(returned_json['user']).to eq nil
+      end
+
 #  [x] If I am not logged in as an admin, I can't get the list of all users
       it ('should not return list of users if a user is not signed in as admin') do
         get :index
@@ -151,7 +163,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it "should should return driver information" do
         data = { "selectedDriverId"=>user_2.id, "currentClientId"=>client_2.id }.to_json
         sign_in admin
-
         put(:update , params: { id: user_2.id } , body: data)
 
         returned_json = JSON.parse(response.body)
@@ -170,6 +181,37 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         client_2.reload
         expect(client_2.driver_id).to eq user_2.id
+      end
+
+#  [x] If I am logged in as a driver, I can't assign a driver for client
+      it "should return error if a driver tries to update clients driver_id" do
+        data = { "selectedDriverId"=>user_2.id, "currentClientId"=>client_2.id }.to_json
+        sign_in user_1
+        put(:update , params: { id: user_2.id } , body: data)
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(returned_json).to be_kind_of(Hash)
+        expect(returned_json).to_not be_kind_of(Array)
+        expect(returned_json['error']).to eq 'You are not authorized'
+
+        client_2.reload
+        expect(client_2.driver_id).to eq nil
+      end
+
+#  [x] If I am not logged in to the system, I can't assign a driver for client
+      it "should return error if an unauthorized user tries to update clients driver_id" do
+        data = { "selectedDriverId"=>user_2.id, "currentClientId"=>client_2.id }.to_json
+        put(:update , params: { id: user_2.id } , body: data)
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(returned_json).to be_kind_of(Hash)
+        expect(returned_json).to_not be_kind_of(Array)
+        expect(returned_json['error']).to eq 'You are not authorized'
+
+        client_2.reload
+        expect(client_2.driver_id).to eq nil
       end
     end
 end
