@@ -1,7 +1,7 @@
-[Users|first_name|last_name|address|city|state|zip|phone|profile_photo|hourly_rate|comments]
-[Pickups|name|pickup_time|appointment_time|comment|pickup_address|pickup_city|dropoff_address|dropoff_city|picked_up :boolean|dropped_off :boolean|price]
+[Users|first_name|last_name|address|city|state|zip|phone|email|profile_photo|hourly_rate|comments]
+[Pickups|name|pickup_time|appointment_time|comment|phone|pickup_address|pickup_city|dropoff_address|dropoff_city|picked_up :boolean|dropped_off :boolean|price]
 [DriverDays|year|month|day]
-[Shifts|start_time|finish_time|travel_time]
+[Shifts|user_id|start_time|finish_time|travel_time|started: boolean|finished: boolean]
 [Cars|comments|buy_price|color]
 
 [Users]->[Pickups]

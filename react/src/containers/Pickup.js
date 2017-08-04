@@ -14,12 +14,15 @@ class Pickup extends Component {
       pickedUp: false,
       droppedOff: false,
       showUser: false,
-      assignedDriver: null,
       allDrivers: [],
+      assignedDriverText: 'N/A',
+      selectedDriverId: 0,
       error: null
     }
     this.handlePickupButton = this.handlePickupButton.bind(this);
     this.handleDropoffButton = this.handleDropoffButton.bind(this);
+    this.handleForm = this.handleForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -30,8 +33,12 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(pickup => {
-
-      this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, assignedDriver: pickup.driver })
+      if (pickup.driver) {
+        let name = `${pickup.driver.first_name} ${pickup.driver.last_name}`
+        this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, assignedDriverText: name })
+      } else {
+        this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off })
+      }
     })
 
     fetch('/api/v1/users',{
@@ -47,6 +54,24 @@ class Pickup extends Component {
       } else {
         this.setState({ showUser: body.auth, currentUser: body.user })
       }
+    })
+  }
+
+  handleChange(event) {
+    this.setState({ selectedDriverId: event.target.value})
+  }
+
+  handleForm(event) {
+    event.preventDefault();
+    fetch(`/api/v1/users/${this.state.selectedDriverId}/`, {
+      method: 'PATCH',
+      credentials: "same-origin",
+      body: JSON.stringify({ selectedDriverId: this.state.selectedDriverId, currentClientId: this.state.pickupId })
+    })
+    .then(response => response.json())
+    .then(body => {
+      let name = `${body.first_name} ${body.last_name}`
+      this.setState({ assignedDriverText: name })
     })
   }
 
@@ -110,12 +135,14 @@ class Pickup extends Component {
     } else {
       pickupTile = 'You are not authorized'
     }
-
     if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+
       form = <AssignForm
                   allDrivers={this.state.allDrivers}
                   currentClientId={this.state.pickupId}
-                  assignedDriver={this.state.assignedDriver}
+                  handleForm={this.handleForm}
+                  handleChange={this.handleChange}
+                  selectedDriverId={this.state.selectedDriverId}
               />
     } else {
       form = null;
@@ -133,6 +160,7 @@ class Pickup extends Component {
             <Link to='/pickups' className="btn waves-effect waves-light navbar-color-dark">Back to all clients</Link>
           </div>
           <div className="col s12 l6">
+            <div className="large-text"><b>Assigned driver: </b>{this.state.assignedDriverText}</div>
             {form}
           </div>
           <div className="row">
