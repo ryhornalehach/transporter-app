@@ -45,14 +45,19 @@ class Pickups extends Component {
     let filteredClients = this.state.pickups.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     if (this.state.showUser) {
+      let counter = 0;
       pickups = filteredClients.map( (pickup, index) => {
         let cardClassName;
         if (pickup.picked_up && pickup.dropped_off) {
           cardClassName = 'dropped_off';
         } else if (pickup.picked_up) {
           cardClassName = 'picked_up';
+        } else {
+          counter += 1;
+          if (counter > 1) {
+            cardClassName = 'invisible';
+          }
         }
-
         return(
           <PickupIndexTile
             key={index}
