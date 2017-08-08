@@ -54,7 +54,7 @@ class Pickups extends Component {
           cardClassName = 'picked_up';
         } else {
           counter += 1;
-          if (counter > 1) {
+          if (counter > 1 && this.state.currentUser.admin !== true) {
             cardClassName = 'invisible';
           }
         }
