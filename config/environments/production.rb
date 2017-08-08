@@ -60,7 +60,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              "smtp.mailgun.org",
     port:                 587,
-    domain:               transporter-app.herokuapp.com,
+    domain:               'mailgun.org',
     user_name:            ENV["MAILGUN_SMTP_LOGIN"],
     password:             ENV["MAILGUN_SMTP_PASSWORD"],
     authentication:       "plain" }
