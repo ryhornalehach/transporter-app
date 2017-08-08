@@ -21,6 +21,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'valid_attribute'
   gem "faker", github: "stympy/faker"
+  gem 'mailcatcher'
 end
 
 group :test do

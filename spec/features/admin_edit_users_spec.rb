@@ -69,4 +69,21 @@ feature "admin can edit the users info",
     expect(page).to have_content "91890"
     expect(page).to have_content "818-818-8888"
   end
+
+  xscenario "Admin logs in and delete the user" do
+    user_1 = User.create(first_name: "David", last_name: "Hasselhoff", email: "theHoff@yahoo.com", password: "password", address: '100 Main st.', city: 'Lynn', state: 'MA', zip: '01990', phone: '617-111-2222')
+    admin = User.create(first_name: "Admin", last_name: "Shiny", email: "admin@admin.com", password: "admin123", address: '99 Main st.', city: 'Reading', state: 'CT', zip: '01991', phone: '689-123-5435', admin: true, role: 'admin')
+
+    visit root_path
+    first(:link, "Sign In").click
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: admin.password
+    click_button "Log in"
+
+    first(:link, "All Users List").click
+    first(:link, "Delete User").click
+
+    expect(page).to have_content "User Deleted"
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
+  end
 end
