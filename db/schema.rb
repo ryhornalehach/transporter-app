@@ -10,10 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724220120) do
+ActiveRecord::Schema.define(version: 20170809150429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "jobapplications", force: :cascade do |t|
+    t.string   "first_name",                              null: false
+    t.string   "last_name",                               null: false
+    t.string   "middle_name"
+    t.string   "address",                                 null: false
+    t.string   "city",                                    null: false
+    t.string   "state",                                   null: false
+    t.string   "zip",                                     null: false
+    t.string   "phone",                                   null: false
+    t.string   "email",                                   null: false
+    t.string   "birth_date",                              null: false
+    t.string   "dl_number",                               null: false
+    t.string   "dl_issuedate",                            null: false
+    t.string   "dl_state",                                null: false
+    t.boolean  "years_experience",                        null: false
+    t.string   "ssn",                                     null: false
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_phone"
+    t.boolean  "own_car",                 default: false, null: false
+    t.integer  "car_year"
+    t.string   "car_make"
+    t.string   "car_model"
+    t.boolean  "livery_plates"
+    t.boolean  "full_time",                               null: false
+    t.string   "hours_available",                         null: false
+    t.text     "driving_violations",                      null: false
+    t.text     "criminal_records",                        null: false
+    t.text     "professional_experience",                 null: false
+    t.text     "references",                              null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
 
   create_table "pickups", force: :cascade do |t|
     t.string   "name",                             null: false
