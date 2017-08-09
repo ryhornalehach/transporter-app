@@ -1,0 +1,43 @@
+<% if current_user && current_user.admin? %>
+  <div class="row">
+    <div class="col s12">
+      <ul><p><b>First Name:</b> <%= @jobapplication.first_name %> &nbsp;&nbsp;
+              <b>Last Name:</b> <%= @jobapplication.last_name %> &nbsp;&nbsp;
+              <b>Middle Name:</b> <%= @jobapplication.middle_name %></p></ul>
+      <ul><p><b>Address:</b> <%= @jobapplication.address %> &nbsp;&nbsp;
+              <b>City:</b> <%= @jobapplication.city %> &nbsp;&nbsp;
+              <b>State:</b> <%= @jobapplication.state %> &nbsp;&nbsp;
+              <b>Zip:</b> <%= @jobapplication.zip %></p></ul>
+      <ul><p><b>Phone:</b> <%= @jobapplication.phone %> &nbsp;&nbsp;
+              <b>Email:</b> <%= @jobapplication.email %> &nbsp;&nbsp;
+              <b>Date of birth:</b> <%= @jobapplication.birth_date %></p></ul>
+      <ul><p><b>DL number:</b> <%= @jobapplication.dl_number %> &nbsp;&nbsp;
+              <b>DL issue date:</b> <%= @jobapplication.dl_issuedate %> &nbsp;&nbsp;
+              <b>DL issue state:</b> <%= @jobapplication.dl_state %> &nbsp;&nbsp;
+              <b>3 years of experience?:</b> <%= @jobapplication.years_experience %></p></ul>
+      <ul><p><b>SSN:</b> <%= @jobapplication.ssn %> &nbsp;&nbsp;
+              <b>Full time?:</b> <%= @jobapplication.full_time %> &nbsp;&nbsp;
+              <b>Hours available:</b> <%= @jobapplication.hours_available %></p></ul>
+      <ul><p><b>Emergency contact name:</b> <%= @jobapplication.emergency_contact_name %> &nbsp;&nbsp;
+              <b>Emergency contact phone:</b> <%= @jobapplication.emergency_contact_phone %></p></ul>
+      <ul><p><b>Own car?:</b> <%= @jobapplication.own_car %> &nbsp;&nbsp;
+              <b>Car year:</b> <%= @jobapplication.car_year %> &nbsp;&nbsp;
+              <b>Car make:</b> <%= @jobapplication.car_make %> &nbsp;&nbsp;
+              <b>Car model:</b> <%= @jobapplication.car_model %> &nbsp;&nbsp;
+              <b>Livery plates?:</b> <%= @jobapplication.livery_plates %></p></ul>
+      <ul><p><b>Driving violations:</b> <%= @jobapplication.driving_violations %></p></ul>
+      <ul><p><b>Criminal records:</b> <%= @jobapplication.criminal_records %></p></ul>
+      <ul><p><b>Professional experience:</b> <%= @jobapplication.professional_experience %></p></ul>
+      <ul><p><b>References:</b> <%= @jobapplication.references %></p></ul>
+
+      <ul><p><b>Submitted at:</b> <%= @jobapplication.created_at %></p></ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <%= link_to "Edit Application", edit_jobapplication_path(@jobapplication), class: "btn waves-effect waves-light navbar-color-dark" %>
+      <%= link_to "Delete Application", jobapplication_path(@jobapplication), method: :delete, data: {confirm: "Are You Sure?"}, class: 'waves-effect waves-light btn red' %>
+    </div>
+  </div>
+<%end%>

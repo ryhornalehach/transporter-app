@@ -1,0 +1,24 @@
+<h3>Hello Admin! </h3>
+<table id = "jobapplications" class="display nowrap" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Date submitted</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @jobapplications.each do |jobapplication| %>
+      <tr>
+        <td><%= link_to "#{jobapplication.first_name} #{jobapplication.last_name}", jobapplication %></td>
+        <td><%= link_to jobapplication.email, jobapplication %></td>
+        <td><%= jobapplication.created_at.strftime("%B %d, %Y") %></td>
+        <td><%= link_to "Edit Application", edit_jobapplication_path(jobapplication), class: 'waves-effect waves-light btn navbar-color-dark' %></td>
+        <td><%= link_to "Delete Application", jobapplication_path(jobapplication), method: :delete, data: {confirm: "Are You Sure?"}, class: 'waves-effect waves-light btn red' %></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+<%= will_paginate @jobapplications %>

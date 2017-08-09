@@ -34,7 +34,7 @@ class JobapplicationsController < ApplicationController
     @new_jobapplication = Jobapplication.new(jobapplication_params)
     if @new_jobapplication.save
       UsersMailer.new_job_application(@new_jobapplication).deliver
-      redirect_to root_path, notice: "Job application was successfully submitted"
+      redirect_to root_path, notice: "Job application was successfully submitted. Hiring manager will contact you as soon as the application will be processed."
     else
       redirect_to root_path, notice: "Application not submitted due to an error in the submitted form. Try again please."
     end
