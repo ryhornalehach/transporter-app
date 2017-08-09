@@ -37,7 +37,6 @@ class JobapplicationsController < ApplicationController
       UsersMailer.new_job_application(@new_jobapplication).deliver
       redirect_to root_path, notice: "Job application was successfully submitted"
     else
-      binding.pry
       redirect_to root_path, notice: "Application not submitted due to an error in the submitted form. Try again please."
     end
   end
