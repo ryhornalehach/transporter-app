@@ -31,7 +31,6 @@ class JobapplicationsController < ApplicationController
   end
 
   def create
-    data = Jobapplication.new(jobapplication_params)
     @new_jobapplication = Jobapplication.new(jobapplication_params)
     if @new_jobapplication.save
       UsersMailer.new_job_application(@new_jobapplication).deliver
