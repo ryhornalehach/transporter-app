@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col s12">
+    <div class="row">
+      <div class="col s12">
+        <h4><b>Edit Job application</b></h4>
+      </div>
+    </div>
+
+    <%= form_for @jobapplication do |f| %>
+      <div class="row">
+        <div class="input-field col s12 l5">
+          <%= f.text_field :first_name, type: "text", :required => true %>
+          <%= f.label :first_name, class: 'active' %>
+        </div>
+        <div class="input-field col s12 l2">
+          <%= f.text_field :middle_name, type: "text" %>
+          <%= f.label :middle_name, value: "Middle Name (Optional)", class: 'active' %>
+        </div>
+        <div class="input-field col s12 l5">
+          <%= f.text_field :last_name, type: "text", :required => true %>
+          <%= f.label :last_name, class: 'active' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :address, class: 'active' %>
+          <%= f.text_field :address, :required => true %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :city, class: 'active' %>
+          <%= f.text_field :city, :required => true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :state, class: 'active' %>
+          <%= f.text_field :state, :required => true %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :zip, class: 'active' %>
+          <%= f.text_field :zip, :required => true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :phone, class: 'active' %>
+          <%= f.text_field :phone, :required => true %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :email, class: 'active' %>
+          <%= f.email_field :email , :required => true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :birth_date, value: "Date of Birth", class: 'active' %>
+          <%= f.text_field :birth_date, :required => true %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :ssn, value: "Social Security Number", class: 'active' %>
+          <%= f.text_field :ssn , :required => true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l5">
+          <%= f.text_field :dl_number, type: "text", :required => true %>
+          <%= f.label :dl_number, value: "Driver's license number", class: 'active' %>
+        </div>
+        <div class="input-field col s12 l2">
+          <%= f.text_field :dl_state, type: "text" %>
+          <%= f.label :dl_state, value: "Driver's license state", class: 'active' %>
+        </div>
+        <div class="input-field col s12 l5">
+          <%= f.text_field :dl_issuedate, type: "text", :required => true %>
+          <%= f.label :dl_issuedate , value: "Driver's license Issue Date", class: 'active' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <%= f.label :years_experience, value: "Have you had a valid US license for at least 3 full years?", :required => true, class: 'active' %>
+          <%= f.collection_radio_buttons :years_experience, [ [true, "YES"], [false, "NO"] ], :first, :last %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l6">
+          <%= f.label :emergency_contact_name, class: 'active' %>
+          <%= f.text_field :emergency_contact_name %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :emergency_contact_phone, class: 'active' %>
+          <%= f.text_field :emergency_contact_phone %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 l6">
+          <%= f.label :full_time, value: "Are you available to work full time? (40 + hours per week)" %>
+          <%= f.collection_radio_buttons :full_time, [ [true, "YES"], [false, "NO"] ], :first, :last %>
+        </div>
+        <div class="input-field col s12 l6">
+          <%= f.label :hours_available, value: "Please describe what days and hours are you available to work?", class: 'active' %>
+          <%= f.text_area :hours_available %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.label :professional_experience, value: "Please describe your recent work experience (at least 3 years)", class: 'active' %>
+          <%= f.text_area :professional_experience %>
+        </div>
+        <div class="input-field col s12">
+          <%= f.label :references, value: "Please list your references", class: 'active' %>
+          <%= f.text_area :references %>
+        </div>
+        <div class="input-field col s12">
+          <%= f.label :driving_violations, value: "Please list and describe if you have had any driving violations in the past 10 years", class: 'active' %>
+          <%= f.text_area :driving_violations %>
+        </div>
+        <div class="input-field col s12">
+          <%= f.label :criminal_records, value: "Please list and describe if you have had any criminal records in the past 10 years", class: 'active' %>
+          <%= f.text_area :criminal_records %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <p>Do you have a personal car that you are willing to use for work?</p>
+          <%= f.label :own_car, value: "Do you have a personal car that you are willing to use for work?", class: 'active' %>
+          <%= f.collection_radio_buttons :own_car, [ [true, "YES"], [false, "NO"] ], :first, :last %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 l2">
+          <%= f.text_field :car_year, type: "text", :required => true %>
+          <%= f.label :car_year, class: 'active' %>
+        </div>
+        <div class="input-field col s12 l5">
+          <%= f.text_field :car_make, type: "text" %>
+          <%= f.label :car_make, class: 'active' %>
+        </div>
+        <div class="input-field col s12 l5">
+          <%= f.text_field :car_model, type: "text", :required => true %>
+          <%= f.label :car_model, class: 'active' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <p>What type of plates do you have on your car?</p>
+          <%= f.label :livery_plates, value: "Do you have LIVERY plates or just a regular type plates?", class: 'active' %>
+          <%= f.collection_radio_buttons :livery_plates, [ [true, "LIVERY"], [false, "Regular"] ], :first, :last %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <%= f.submit "Update Application", class: "btn waves-effect waves-light navbar-color-dark" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
