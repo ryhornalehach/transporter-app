@@ -79,7 +79,7 @@ class Pickups extends Component {
         }
         if (pickup.driver_id) {
           this.state.drivers.forEach ((driver) => {
-            if (driver.id == pickup.driver_id) {
+            if (driver.id === pickup.driver_id) {
               driverName = `${driver.first_name} ${driver.last_name}`;
             }
           })
