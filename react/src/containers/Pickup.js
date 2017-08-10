@@ -71,7 +71,12 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      let name = `${body.first_name} ${body.last_name}`
+      let name;
+      if (body) {
+        name = `${body.first_name} ${body.last_name}`;
+      } else {
+        name = 'N/A';
+      }
       this.setState({ assignedDriverText: name })
     })
   }

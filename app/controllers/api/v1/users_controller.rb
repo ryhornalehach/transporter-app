@@ -35,13 +35,15 @@ class Api::V1::UsersController < ApplicationController
     if current_user
       if current_user.role === 'admin' || current_user.role === 'manager'
         data = JSON.parse(request.body.read)
-        new_driver = data['selectedDriverId']
-        pickup = Pickup.find(data['currentClientId'])
-        if User.find(new_driver)
-          pickup.driver_id = new_driver
+        if data['selectedDriverId'] == 0
+          new_driver = nil
+        elsif data['selectedDriverId']
+          new_driver = data['selectedDriverId']
         else
-          pickup.driver_id = nil
+          new_driver = nil
         end
+        pickup = Pickup.find(data['currentClientId'])
+        pickup.driver_id = new_driver
         pickup.save
         render json: pickup.driver
       else
