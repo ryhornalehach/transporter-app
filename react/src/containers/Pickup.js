@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PickupTile from '../components/PickupTile';
+import AdminPickupTile from '../components/AdminPickupTile';
 import AssignForm from '../components/AssignForm';
 import MapComponent from '../components/MapComponent';
 
@@ -121,8 +122,19 @@ class Pickup extends Component {
       buttonConfirmDropoff = null;
     }
 
-    if (this.state.currentUser.id == this.state.pickupInfo.driver_id || this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+    if (this.state.currentUser.id == this.state.pickupInfo.driver_id) {
       pickupTile = <PickupTile
+                        pickupInfo={this.state.pickupInfo}
+                        showUser={this.state.showUser}
+                        pickedUp={this.state.pickedUp}
+                        droppedOff={this.state.droppedOff}
+                        buttonConfirmPickup={buttonConfirmPickup}
+                        buttonConfirmDropoff={buttonConfirmDropoff}
+                        handlePickupButton={this.handlePickupButton}
+                        handleDropoffButton={this.handleDropoffButton}
+                  />
+    } else if (this.state.currentUser.admin) {
+      pickupTile = <AdminPickupTile
                         pickupInfo={this.state.pickupInfo}
                         showUser={this.state.showUser}
                         pickedUp={this.state.pickedUp}
@@ -135,7 +147,7 @@ class Pickup extends Component {
     } else {
       pickupTile = 'You are not authorized'
     }
-    if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+    if (this.state.currentUser.admin) {
 
       form = <AssignForm
                   allDrivers={this.state.allDrivers}

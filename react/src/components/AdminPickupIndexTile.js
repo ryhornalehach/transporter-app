@@ -1,16 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
 
-const PickupIndexTile = props => {
+const AdminPickupIndexTile = props => {
   let cardClassName, status;
   if (props.cardClassName === 'picked_up') {
     cardClassName = "card card-size horizontal green lighten-3";
     status = 'Picked up';
   } else if (props.cardClassName === 'dropped_off') {
-    cardClassName = "card card-size horizontal grey lighten-2 grey-text";
+    cardClassName = "card card-size horizontal grey lighten-1 grey-text text-darken-1";
     status = 'Dropped off';
-  } else if (props.cardClassName === 'invisible') {
-    cardClassName = "card card-size horizontal invisible";
   } else {
     cardClassName = "card card-size horizontal";
   }
@@ -25,7 +23,8 @@ const PickupIndexTile = props => {
                 <span className="card-title">{status}</span>
             </div>
             <p><b>At:</b> {props.pickup.pickup_time}</p>
-            <p><b>From:</b> {props.pickup.pickup_city}<b> &nbsp; To:</b> {props.pickup.dropoff_city}</p>
+            <p><b>From:</b> {props.pickup.pickup_address} {props.pickup.pickup_city}<b> &nbsp; To:</b> {props.pickup.dropoff_address} {props.pickup.dropoff_city}</p>
+            <p><b>Comments:</b> {props.pickup.comment}</p>
           </div>
         </div>
       </div>
@@ -33,4 +32,4 @@ const PickupIndexTile = props => {
   )
 }
 
-export default PickupIndexTile
+export default AdminPickupIndexTile
