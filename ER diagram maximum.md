@@ -4,10 +4,17 @@
 [Shifts|user_id|start_time|finish_time|travel_time|started: boolean|finished: boolean]
 [Cars|comments|buy_price|color]
 [JobApplications|first_name|last_name|middle_name|address|city|state|zip|phone|email|birth_date|DL_number|DL_issuedate|years_experience|SSN|emergency_contact_name|emergency_contact_phone|own_car|car_make|car_model|car_year|livery_plates|full_time|hours_available|driving_violations|criminal_records|professional_experience|references]
-
+[Incidents|user_id:optional|car_id:optional|desription|location|date|time]
+[CarSwitches|user_id|car_id|date|time|comments]
+[ArchiveClients|date|name|pickup_time|appointment_time|comment|phone|pickup_address|pickup_city|dropoff_address|dropoff_city|picked_up :boolean|dropped_off :boolean|price]
 
 [Users]->[Pickups]
 [Users]->[Shifts]
 [DriverDays]->[Shifts]
 [DriverDays]<-[Users]
 [Users]-[Cars]
+[Users]-[JobApplications]
+[Users]->[Incidents]
+[Pickups]->[Incidents]
+[Cars]->[CarSwitches]
+[Users]->[CarSwitches]

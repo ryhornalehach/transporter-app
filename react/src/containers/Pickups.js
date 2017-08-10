@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PickupIndexTile from '../components/PickupIndexTile'
+import AdminPickupIndexTile from '../components/AdminPickupIndexTile'
 import SearchInput, {createFilter} from 'react-search-input'
 
 const KEYS_TO_FILTERS = ['name', 'comment', 'pickup_city', 'pickup_address', 'dropoff_city', 'dropoff_address', 'pickup_time']
@@ -44,7 +45,7 @@ class Pickups extends Component {
     let pickups;
     let filteredClients = this.state.pickups.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
-    if (this.state.showUser) {
+    if (this.state.showUser && !this.state.currentUser.admin) {
       let counter = 0;
       pickups = filteredClients.map( (pickup, index) => {
         let cardClassName;
@@ -60,6 +61,23 @@ class Pickups extends Component {
         }
         return(
           <PickupIndexTile
+            key={index}
+            id={pickup.id}
+            pickup={pickup}
+            cardClassName={cardClassName}
+          />
+        )
+      })
+    } else if (this.state.showUser && this.state.currentUser.admin) {
+      pickups = filteredClients.map( (pickup, index) => {
+        let cardClassName;
+        if (pickup.picked_up && pickup.dropped_off) {
+          cardClassName = 'dropped_off';
+        } else if (pickup.picked_up) {
+          cardClassName = 'picked_up';
+        } 
+        return(
+          <AdminPickupIndexTile
             key={index}
             id={pickup.id}
             pickup={pickup}
