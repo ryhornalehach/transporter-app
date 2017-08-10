@@ -19,7 +19,7 @@ const AdminPickupIndexTile = props => {
         <div className={cardClassName}>
           <div className="card-content">
             <div className="row">
-                <span className="card-title"><a href={`/pickups/${props.pickup.id}`}>{props.pickup.name}</a></span>
+                <span className="card-title"><a href={`/pickups/${props.pickup.id}`}>{props.pickup.name}</a> &nbsp; Driver: {props.driverName}</span>
                 <span className="card-title">{status}</span>
             </div>
             <p><b>At:</b> {props.pickup.pickup_time}</p>
