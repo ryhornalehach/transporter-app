@@ -9,6 +9,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'listen'
 gem "devise"
+gem "carrierwave"
+gem 'fog'
 gem 'materialize-sass'
 gem 'will_paginate', '~> 3.1.0'
 

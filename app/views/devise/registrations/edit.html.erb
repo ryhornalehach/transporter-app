@@ -4,6 +4,12 @@
   </div>
 </div>
 
+<% if @user.profile_photo.file.nil? %>
+  <ul><img src=<%= asset_path('avatar.jpg')%> height="150", class= "circle" ></ul>
+<% else %>
+  <ul><img src=<%= @user.profile_photo %> height="150", class= "circle" ></ul>
+<% end %>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
@@ -63,6 +69,18 @@
     <div class="input-field col s12 l6">
       <%= f.label :password_confirmation, class: 'active' %>
       <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="file-field input-field col s12 l6">
+      <div class="btn navbar-color-dark">
+        <span>Photo</span>
+        <%= f.file_field :profile_photo, id: "upload"%>
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate", placeholder="Change User Avatar">
+      </div>
     </div>
   </div>
 

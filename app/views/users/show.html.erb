@@ -12,6 +12,11 @@
         </div>
       </div>
     <%end%>
+    <% if @user.profile_photo.file.nil? %>
+      <ul><img src=<%= asset_path('avatar.jpg')%> height="150", class= "circle" ></ul>
+    <% else %>
+      <ul><img src=<%= @user.profile_photo %> height="150", class= "circle" ></ul>
+    <% end %>
   </div>
 </div>
 
