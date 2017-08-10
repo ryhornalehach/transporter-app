@@ -11,6 +11,7 @@ class Pickups extends Component {
     super(props)
     this.state = {
       pickups: [],
+      drivers: [],
       currentUser: {},
       showUser: false,
       searchQuery: '',
@@ -29,7 +30,7 @@ class Pickups extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ showUser: body.auth, currentUser: body.user })
+      this.setState({ showUser: body.auth, currentUser: body.user, drivers: body.allDrivers })
     })
 
     fetch('/api/v1/pickups',{
@@ -70,18 +71,29 @@ class Pickups extends Component {
       })
     } else if (this.state.showUser && this.state.currentUser.admin) {
       pickups = filteredClients.map( (pickup, index) => {
-        let cardClassName;
+        let cardClassName, driverName;
         if (pickup.picked_up && pickup.dropped_off) {
           cardClassName = 'dropped_off';
         } else if (pickup.picked_up) {
           cardClassName = 'picked_up';
-        } 
+        }
+        if (pickup.driver_id) {
+          this.state.drivers.forEach ((driver) => {
+            if (driver.id == pickup.driver_id) {
+              driverName = `${driver.first_name} ${driver.last_name}`;
+            }
+          })
+
+        } else {
+          driverName = 'N/A';
+        }
         return(
           <AdminPickupIndexTile
             key={index}
             id={pickup.id}
             pickup={pickup}
             cardClassName={cardClassName}
+            driverName={driverName}
           />
         )
       })

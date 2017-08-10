@@ -58,6 +58,22 @@
       </div>
 
       <div class="row">
+        <div class="col s12">
+          <p>Is the user an admin?</p>
+          <%= f.label :admin, class: 'active' %>
+          <%= f.collection_radio_buttons :admin, [ [true, "YES"], [false, "NO"] ], :first, :last %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <p>Role of the user:</p>
+          <%= f.label :role, class: 'active' %>
+          <%= f.collection_radio_buttons :role, [ ["driver", "Driver"], ["admin", "Admin"], ["manager", "Manager"] ], :first, :last %>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="file-field input-field col s12 l6">
           <div class="btn navbar-color-dark">
             <span>Photo</span>

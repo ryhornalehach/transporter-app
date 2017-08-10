@@ -9,7 +9,7 @@ const DriverIndexTile = props => {
         <div className="card card-size horizontal">
           <div className="card-content">
             <div className="row">
-                <span className="card-title"><a href={`/drivers/${props.driver.id}`}>{props.driver.first_name} {props.driver.last_name}</a></span>
+                <span className="card-title"><a href={`/drivers/${props.driver.id}`}>{props.driver.first_name} {props.driver.last_name} <img src={props.driver.profile_photo.url} height="60" className= "circle" /></a></span>
                 <span className="card-title">{status}</span>
             </div>
             <p><b>Phone:</b> {props.driver.phone}</p>
