@@ -7,7 +7,7 @@ const PickupIndexTile = props => {
     cardClassName = "card card-size horizontal green lighten-3";
     status = 'Picked up';
   } else if (props.cardClassName === 'dropped_off') {
-    cardClassName = "card card-size horizontal grey lighten-2 grey-text";
+    cardClassName = "card card-size horizontal grey lighten-1 grey-text text-darken-1";
     status = 'Dropped off';
   } else if (props.cardClassName === 'invisible') {
     cardClassName = "card card-size horizontal invisible";
