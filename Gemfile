@@ -19,6 +19,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
+  gem 'rails-controller-testing'
   gem 'pry-rails'
   gem 'shoulda'
   gem 'valid_attribute'

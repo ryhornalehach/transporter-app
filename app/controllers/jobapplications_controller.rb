@@ -2,11 +2,7 @@ class JobapplicationsController < ApplicationController
   before_action :authorize_user, except: [:new, :create]
 
   def show
-    if current_user && current_user.admin?
-      @jobapplication = Jobapplication.find(params[:id])
-    else
-      @jobapplication = Jobapplication.find(current_user[:id])
-    end
+    @jobapplication = Jobapplication.find(params[:id])
   end
 
   def index
