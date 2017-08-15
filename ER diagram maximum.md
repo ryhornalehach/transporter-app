@@ -7,6 +7,7 @@
 [Incidents|user_id:optional|car_id:optional|desription|location|date|time]
 [CarSwitches|user_id|car_id|date|time|comments]
 [ArchiveClients|date|name|pickup_time|appointment_time|comment|phone|pickup_address|pickup_city|dropoff_address|dropoff_city|picked_up :boolean|dropped_off :boolean|price]
+[Days|date|order|driver_id|pickup_id]
 
 [Users]->[Pickups]
 [Users]->[Shifts]
