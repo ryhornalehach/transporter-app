@@ -59,6 +59,8 @@ RSpec.configure do |config|
 end
 require "capybara/rails"
 require "valid_attribute"
+require 'rails-controller-testing'
+Rails::Controller::Testing.install
 
 RSpec.configure do |config|
     config.include FactoryGirl::Syntax::Methods

@@ -24,45 +24,48 @@ RSpec.describe JobapplicationsController, type: :controller do
 
 
     describe 'GET#index' do
-#  Acceptance Criteria:
-#  [] If I am signed in as an admin, I can get the list of all job applications
-      it ('should return all jobapplications for admin') do
+      it ('should render the "index" template for admin') do
         sign_in admin
         get :index
-
         expect(response).to render_template("index")
       end
-#  [x] If I am signed in as a user, I can get the list of assigned to me clients
 
+      it ('should create the instance variable with all job applications') do
+        sign_in admin
+        get :index
+        expect(assigns(:jobapplications)).to eq([jobapplication_1])
+      end
 
-#  [x] If I am not signed in as a user, I can't get the list of the clients
+      it ('should raise error when driver tries to access the index page') do
+        sign_in user_1
+        expect{ get :index }.to raise_error(ActionController::RoutingError)
+      end
 
+      it ('should raise error not signed in visitor tries to access the index page') do
+        expect{ get :index }.to raise_error(NoMethodError)
+      end
     end
 
-    # describe 'GET#show' do
-#  Acceptance Criteria:
-#  [x] If I am logged in as an admin, I can get the specified client's info
-      # it ('should return specified client and assigned driver information') do
-      #   sign_in admin
-      #   get :show, params: { id: client_1.id }
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(response.content_type).to eq("application/json")
-      #   expect(returned_json.length).to eq 2
-      #
-      #   expect(returned_json['driver']['first_name']).to eq user_1.first_name
-      # end
+    describe 'GET#show' do
+      it ('should render the "show" template for admin') do
+        sign_in admin
+        get :show, params: { id: jobapplication_1.id }
+        expect(response).to render_template("show")
+      end
 
+      it ('should create the instance variable with current job application') do
+        sign_in admin
+        get :show, params: { id: jobapplication_1.id }
+        expect(assigns(:jobapplication)).to eq(jobapplication_1)
+      end
 
-#  [x] If I am not logged in the system, I can't get any user's information
+      it ('should raise error not signed in visitor tries to access the show page') do
+        expect{ get :show, params: { id: jobapplication_1.id } }.to raise_error(NoMethodError)
+      end
 
-
-#  [x] If I am logged in as a driver, I can get assigned to me client's information
-
-
-#  [x] If I am logged in as a driver, I can't get not assigned to me client's information
-
-    # end
-
+      it ('should raise error when driver tries to access the show page') do
+        sign_in user_1
+        expect{ get :show, params: { id: jobapplication_1.id } }.to raise_error(ActionController::RoutingError)
+      end
+    end
 end
