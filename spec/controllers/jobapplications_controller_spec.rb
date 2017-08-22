@@ -59,7 +59,7 @@ RSpec.describe JobapplicationsController, type: :controller do
         expect(assigns(:jobapplication)).to eq(jobapplication_1)
       end
 
-      it ('should raise error not signed in visitor tries to access the show page') do
+      it ('should raise error when not signed in visitor tries to access the show page') do
         expect{ get :show, params: { id: jobapplication_1.id } }.to raise_error(NoMethodError)
       end
 
