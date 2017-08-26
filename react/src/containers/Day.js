@@ -29,7 +29,7 @@ class Day extends Component {
       dayTile = new Date (this.state.day.date);
       records = this.state.records.map( (record, index) => {
         return(
-          record.day_id
+          `record # ${index}; client id = ${record.pickup1_id}`
         )
       })
     } else {
