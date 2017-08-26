@@ -16,8 +16,12 @@
 # Technologies used in the app:
   1. Ruby on Rails
   2. React.js
-  3. Materialize Framework
-  4. Application deployed in production using Heroku
+  3. PostgreSQL database
+  4. Materialize Framework
+  5. Application deployed in production using Heroku
+  6. Amazon Web Services (S3) with Carrierwave gem for photo uploads
+  7. Devise gem for user authentication
+  8. Will_paginate gem for paginating the index page
 
 # To start the application:
   1. Bundle install ruby gems:
