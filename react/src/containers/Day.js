@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import RecordTile from '../components/RecordTile'
 
 class Day extends Component {
   constructor(props) {
@@ -7,6 +8,8 @@ class Day extends Component {
     this.state = {
       day: {},
       records: [],
+      drivers: [],
+      pickups: [],
       error: null
     }
   }
@@ -19,17 +22,32 @@ class Day extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      this.setState({ day: response.day, records: response.records, error: response.error })
+      this.setState({ day: response.day, records: response.records, drivers: response.drivers, pickups: response.pickups, error: response.error })
     })
   }
-
   render() {
-    let dayTile, records;
+    let dayTile, records, currentDriverName, currentClient;
     if (!this.state.error) {
       dayTile = new Date (this.state.day.date);
       records = this.state.records.map( (record, index) => {
+        this.state.drivers.forEach((driver) =>{
+          if (driver.id === record.driver_id ) {
+            currentDriverName = `${driver.first_name} ${driver.last_name}`
+          }
+        })
+        this.state.pickups.forEach((pickup) => {
+          if (record.pickup1_id === pickup.id) {
+            currentClient = pickup
+          }
+        })
+
         return(
-          `record # ${index}; client id = ${record.pickup1_id} ; `
+          <RecordTile
+            key={index}
+            record={record}
+            currentClient={currentClient}
+            currentDriverName={currentDriverName}
+          />
         )
       })
     } else {
@@ -40,12 +58,12 @@ class Day extends Component {
       <div>
         <div className="red-text">{this.state.error}</div>
         {dayTile.toDateString()}
-        <p>{records}</p>
 
         <table className="bordered">
           <thead>
             <tr>
                 <th>Order#</th>
+                <th>Driver</th>
                 <th>Pickup Time</th>
                 <th>Appointment Time</th>
                 <th>Comments</th>
@@ -58,39 +76,7 @@ class Day extends Component {
           </thead>
 
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>6.00</td>
-              <td>6.45</td>
-              <td>Back door</td>
-              <td>Arnold Schwarzenegger</td>
-              <td>88 Main st.</td>
-              <td>Fitchburg</td>
-              <td>380 Brookline ave.</td>
-              <td>Boston</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>7.00</td>
-              <td>7.45</td>
-              <td>Call before</td>
-              <td>Bruce Willis</td>
-              <td>11 Summer ave</td>
-              <td>Everett</td>
-              <td>88 E.Newton st.</td>
-              <td>Boston</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>7.30</td>
-              <td>8.30</td>
-              <td>Service dog</td>
-              <td>Chuck Norris</td>
-              <td>248 Galvin st.</td>
-              <td>Revere</td>
-              <td>77 Bridge ave.</td>
-              <td>Lynn</td>
-            </tr>
+            {records}
           </tbody>
         </table>
 
