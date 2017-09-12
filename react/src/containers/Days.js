@@ -23,7 +23,13 @@ class Days extends Component {
   render() {
     let days;
     if (this.state.allDays[0]) {
-      days = this.state.allDays[0].date;
+      days = this.state.allDays.map((day, index) => {
+        let dayTile;
+        dayTile = new Date (day.date)
+        return (
+          <li><a href={`/days/${day.id}`} key={index}>{dayTile.toDateString()}</a></li>
+        )
+      })
     } else {
       days = 'Sorry, you are not authorized to see the contents';
     }
