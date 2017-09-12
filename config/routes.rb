@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :pickups, only: [:index, :show, :update]
       resources :users, only: [:index, :update, :show]
       resources :days, only: [:index, :show]
+      resources :records, only: [:update]
     end
   end
 end

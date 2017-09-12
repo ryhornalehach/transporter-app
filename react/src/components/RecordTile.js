@@ -2,7 +2,7 @@ import React from 'react';
 import AssignOrderForm from '../containers/AssignOrderForm';
 
 const RecordTile = props => {
-  let dropoffColorClass, pickupColorClass, form, groupRecordsDisplay, groupColorClass, together;
+  let dropoffColorClass, pickupColorClass, form, groupRecordsDisplay, groupColorClass, together, currentOrder;
 
   groupRecordsDisplay = props.currentClientsGroup.map((client, index) => {
     if (client.picked_up) {
@@ -18,11 +18,16 @@ const RecordTile = props => {
       groupColorClass = 'amber';
       together = 'Together/ ';
     }
+    if (props.record.order) {
+      currentOrder = props.record.order;
+    } else {
+      currentOrder = 20;
+    }
     form = <AssignOrderForm
-              currentOrder={props.record.order}
+              currentRecordId={props.record.id}
+              currentOrder={currentOrder}
             />
 
-            console.log(index)
     return (
       <tr key={index}>
         <td>{form}</td>
