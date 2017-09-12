@@ -2,31 +2,47 @@ import React from 'react';
 import AssignOrderForm from '../containers/AssignOrderForm';
 
 const RecordTile = props => {
-  let dropoffColorClass, pickupColorClass, form;
-  if (props.currentClient.picked_up) {
-    pickupColorClass = 'green'
-  }
-  if (props.currentClient.dropped_off) {
-    dropoffColorClass = 'green'
-  }
+  let dropoffColorClass, pickupColorClass, form, groupRecordsDisplay, groupColorClass, together;
 
-  form = <AssignOrderForm
+  groupRecordsDisplay = props.currentClientsGroup.map((client, index) => {
+    if (client.picked_up) {
+      pickupColorClass = 'green'
+    }
+    if (client.dropped_off) {
+      dropoffColorClass = 'green'
+    }
+    if (props.currentClientsGroup.length > 1 && index === 0) {
+      groupColorClass = 'amber lighten-2';
+      together = 'Group/ ';
+    } else if (props.currentClientsGroup.length > 1 && index >= 1) {
+      groupColorClass = 'amber';
+      together = 'Together/ ';
+    }
+    form = <AssignOrderForm
               currentOrder={props.record.order}
-          />
+            />
+
+            console.log(index)
+    return (
+      <tr key={index}>
+        <td>{form}</td>
+        <td>{props.currentDriverName}</td>
+        <td className={pickupColorClass}>{client.pickup_time}</td>
+        <td className={dropoffColorClass}>{client.appointment_time}</td>
+        <td className={groupColorClass}>{together}{client.comment}</td>
+        <td>{client.name}</td>
+        <td>{client.pickup_address}</td>
+        <td>{client.pickup_city}</td>
+        <td>{client.dropoff_address}</td>
+        <td>{client.dropoff_city}</td>
+      </tr>
+    )
+  })
 
   return (
-    <tr>
-      <td>{form}</td>
-      <td>{props.currentDriverName}</td>
-      <td className={pickupColorClass}>{props.currentClient.pickup_time}</td>
-      <td className={dropoffColorClass}>{props.currentClient.appointment_time}</td>
-      <td>{props.currentClient.comment}</td>
-      <td>{props.currentClient.name}</td>
-      <td>{props.currentClient.pickup_address}</td>
-      <td>{props.currentClient.pickup_city}</td>
-      <td>{props.currentClient.dropoff_address}</td>
-      <td>{props.currentClient.dropoff_city}</td>
-    </tr>
+    <tbody>
+      {groupRecordsDisplay}
+    </tbody>
   )
 }
 

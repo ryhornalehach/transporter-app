@@ -26,18 +26,19 @@ class Day extends Component {
     })
   }
   render() {
-    let dayTile, records, currentDriverName, currentClient;
+    let dayTile, records, currentDriverName;
     if (!this.state.error) {
       dayTile = new Date (this.state.day.date);
       records = this.state.records.map( (record, index) => {
+        let currentClientsGroup = [];
         this.state.drivers.forEach((driver) =>{
           if (driver.id === record.driver_id ) {
             currentDriverName = `${driver.first_name} ${driver.last_name}`
           }
         })
         this.state.pickups.forEach((pickup) => {
-          if (record.pickup1_id === pickup.id) {
-            currentClient = pickup
+          if (record.pickup1_id === pickup.id || record.pickup2_id === pickup.id || record.pickup3_id === pickup.id) {
+            currentClientsGroup.push(pickup)
           }
         })
 
@@ -45,7 +46,7 @@ class Day extends Component {
           <RecordTile
             key={index}
             record={record}
-            currentClient={currentClient}
+            currentClientsGroup={currentClientsGroup}
             currentDriverName={currentDriverName}
           />
         )
@@ -75,9 +76,7 @@ class Day extends Component {
             </tr>
           </thead>
 
-          <tbody>
             {records}
-          </tbody>
         </table>
 
 
