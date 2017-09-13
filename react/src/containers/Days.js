@@ -25,9 +25,9 @@ class Days extends Component {
     if (this.state.allDays[0]) {
       days = this.state.allDays.map((day, index) => {
         let dayTile;
-        dayTile = new Date (day.date)
+        dayTile = new Date (day.date);
         return (
-          <li><a href={`/days/${day.id}`} key={index}>{dayTile.toDateString()}</a></li>
+          <li key={index}><a href={`/days/${day.id}`}>{day.date}</a></li>
         )
       })
     } else {
