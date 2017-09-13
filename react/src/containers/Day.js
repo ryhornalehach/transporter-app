@@ -41,7 +41,6 @@ class Day extends Component {
             currentClientsGroup.push(pickup)
           }
         })
-
         return(
           <RecordTile
             key={index}
@@ -54,6 +53,7 @@ class Day extends Component {
     } else {
       dayTile = 'You are not authorized';
     }
+    debugger
 
     return(
       <div>

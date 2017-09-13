@@ -43,7 +43,7 @@ const RecordTile = props => {
       </tr>
     )
   })
-
+debugger
   return (
     <tbody>
       {groupRecordsDisplay}
