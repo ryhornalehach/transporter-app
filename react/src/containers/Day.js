@@ -32,22 +32,24 @@ class Day extends Component {
       dayTile = new Date (this.state.day.date);
       console.log('step2');
       records = this.state.records.map( (record, index) => {
-        console.log('step records map');
+        console.log(`step records map. index = ${index}`);
         let currentClientsGroup = [];
         this.state.drivers.forEach((driver) =>{
           if (driver.id === record.driver_id ) {
             currentDriverName = `${driver.first_name} ${driver.last_name}`
-            console.log('step driver name');
+            console.log(`step driver name. currentDriverName = ${currentDriverName}`);
+          } else {
+            console.log(`step driver name. currentDriverName = ${currentDriverName}`);
           }
         })
         this.state.pickups.forEach((pickup) => {
-          console.log('step5');
+          console.log(`step5. pickup.name = ${pickup.name}`);
           if (record.pickup1_id === pickup.id || record.pickup2_id === pickup.id || record.pickup3_id === pickup.id) {
             currentClientsGroup.push(pickup)
-            console.log('step group');
+            console.log(`step group. currentClientsGroup = ${currentClientsGroup}`);
           }
         })
-        console.log('step return');
+        console.log(`step return. record.id = ${record.id}`);
         return(
           <RecordTile
             key={index}
