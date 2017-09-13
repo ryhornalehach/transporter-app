@@ -53,7 +53,6 @@ class Day extends Component {
     } else {
       dayTile = 'You are not authorized';
     }
-    debugger
 
     return(
       <div>
