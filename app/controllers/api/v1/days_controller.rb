@@ -4,7 +4,7 @@ class Api::V1::DaysController < ApplicationController
   def index
     if current_user
       if current_user.role === 'admin' || current_user.role === 'manager'
-        allDays = Day.all
+        allDays = Day.all.reverse
         render json: { allDays: allDays, error: nil }
       elsif current_user.role === 'driver'
         render json: { allDays: nil, error: 'You are not authorized' }
