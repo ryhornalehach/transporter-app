@@ -74,7 +74,7 @@ class Day extends Component {
                 <th>Dropoff City</th>
             </tr>
           </thead>
-
+          Hi there
             {records}
         </table>
 
