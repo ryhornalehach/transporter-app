@@ -1,8 +1,9 @@
 import React from 'react';
 import AssignOrderForm from '../containers/AssignOrderForm';
+import AssignDriverForm from '../containers/AssignDriverForm';
 
 const RecordTile = props => {
-  let dropoffColorClass, pickupColorClass, form, groupRecordsDisplay, groupColorClass, together, currentOrder;
+  let dropoffColorClass, pickupColorClass, form, driversForm, groupRecordsDisplay, groupColorClass, together, currentOrder, currentDriverId;
 
   groupRecordsDisplay = props.currentClientsGroup.map((client, index) => {
     if (client.picked_up) {
@@ -28,10 +29,20 @@ const RecordTile = props => {
               currentOrder={currentOrder}
             />
 
+    if (props.currentDriverId) {
+      currentDriverId = props.currentDriverId;
+    } else {
+      currentDriverId = 0;
+    }
+    driversForm = <AssignDriverForm
+                      currentDriverId={currentDriverId}
+                      currentRecordId={props.record.id}
+                  />
+
     return (
       <tr key={index}>
         <td>{form}</td>
-        <td>{props.currentDriverName}</td>
+        <td>{driversForm}</td>
         <td className={pickupColorClass}>{client.pickup_time}</td>
         <td className={dropoffColorClass}>{client.appointment_time}</td>
         <td className={groupColorClass}>{together}{client.comment}</td>
