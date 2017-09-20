@@ -16,6 +16,7 @@ const AssignForm = props => {
             value = {props.selectedDriverId}
             handleChange={props.handleChange}
             allDrivers={allDrivers}
+            label='Assign new driver'
         />
         <input type="submit" name="Assign Driver" value="Assign Driver" className="btn waves-effect waves-light navbar-color-dark" />
       </form>

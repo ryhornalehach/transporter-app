@@ -47,21 +47,19 @@ class AssignDriverForm extends Component {
     driversMap = drivers.map ((driver) => {
       let name = `${driver.first_name} ${driver.last_name}`
       return (
-        <option key={driver.id} value={driver.id} >{name}</option>
+        <option key={`${name}-${driver.id}`} value={driver.id} >{name}</option>
       )
     })
+
     return(
       <div className='row no-margin'>
         <form className="form" onSubmit={this.assignNewDriver}>
-        <Input
-            s={6}
-            name="driver"
-            type='select'
-            defaultValue={this.props.currentDriverId}
-            onChange={this.handleChange}
-        >
-            {driversMap}
-        </Input>
+        <SelectField
+            value = {this.props.currentDriverId}
+            handleChange={this.handleChange}
+            allDrivers={driversMap}
+            label={null}
+        />
         <button
           className="btn waves-effect waves-light navbar-color-dark s6"
           type="submit"
