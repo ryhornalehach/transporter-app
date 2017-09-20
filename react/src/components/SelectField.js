@@ -6,11 +6,11 @@ const SelectField = props => {
   return(
     <div>
         <Input
-            s={12}
+            s={6}
             name="driver"
             type='select'
             defaultValue={props.value}
-            label="Assign new driver"
+            label={props.label}
             onChange={props.handleChange}
         >
             {props.allDrivers}
