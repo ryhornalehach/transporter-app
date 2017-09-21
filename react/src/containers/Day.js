@@ -13,10 +13,15 @@ class Day extends Component {
       error: null,
       newGroupRecordId: null,
       newGroupPickup2: null,
-      newGroupPickup3: null
+      newGroupPickup3: null,
+      groupFormText: '1st',
+      groupFormColor: 'navbar-color-dark',
+      cancelButton: false,
+      confirmButton: false
     }
     this.makeNewGroup = this.makeNewGroup.bind(this);
     this.onClickGroup = this.onClickGroup.bind(this);
+    this.onClickCancel = this.onClickCancel.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +41,7 @@ class Day extends Component {
     fetch(`/api/v1/days/${this.state.day.id}/`, {
       method: 'PATCH',
       credentials: "same-origin",
-      body: JSON.stringify({ recordId: this.state.newGroupRecordId, pickup2: this.state.newGroupPickup2, pickup3: this.state.newGroupPickup3 })
+      body: JSON.stringify({ method: 'group', recordId: this.state.newGroupRecordId, pickup2: this.state.newGroupPickup2, pickup3: this.state.newGroupPickup3 })
     })
   }
 
@@ -47,8 +52,22 @@ class Day extends Component {
       this.setState({ newGroupPickup2: event.target.name });
     } else if (event.target.innerText[0] == 3) {
       this.setState({ newGroupPickup3: event.target.name });
+    } else if ((event.target.innerText.toUpperCase() == 'SPLIT')) {
+      fetch(`/api/v1/days/${this.state.day.id}/`, {
+        method: 'PATCH',
+        credentials: "same-origin",
+        body: JSON.stringify({ method: 'split', recordId: event.target.name })
+      })
+      this.setState({ newGroupRecordId: null, newGroupPickup2: null, newGroupPickup3: null,
+        groupFormText: '1st', groupFormColor: 'navbar-color-dark', cancelButton: false,
+        confirmButton: false });
     }
-    console.log(`newGroupRecordId = ${this.state.newGroupRecordId}; newGroupPickup2 = ${this.state.newGroupPickup2} ; newGroupPickup3 = ${this.state.newGroupPickup3}`)
+  }
+
+  onClickCancel(event) {
+    this.setState({ newGroupRecordId: null, newGroupPickup2: null, newGroupPickup3: null,
+      groupFormText: '1st', groupFormColor: 'navbar-color-dark', cancelButton: false,
+      confirmButton: false });
   }
 
   render() {
@@ -57,8 +76,10 @@ class Day extends Component {
       dayTile = new Date (this.state.day.date);
       records = this.state.records.map( (record, index) => {
         let currentClientsGroup = [];
-        let groupFormText = '1st';
-        let groupFormColor = 'navbar-color-dark';
+        let cancelButton = this.state.cancelButton;
+        let confirmButton = this.state.confirmButton;
+        let groupFormText = this.state.groupFormText;
+        let groupFormColor = this.state.groupFormColor;
         if (record.driver_id > 0) {
           currentDriverId = record.driver_id;
         } else {
@@ -68,6 +89,22 @@ class Day extends Component {
         if (this.state.newGroupRecordId == record.id) {
           groupFormText = '1st';
           groupFormColor = 'amber lighten-2';
+          cancelButton = true;
+        } else if (this.state.newGroupPickup2 == record.pickup1_id) {
+          groupFormText = '2nd';
+          groupFormColor = 'amber';
+          confirmButton = true;
+        } else if (this.state.newGroupPickup3 == record.pickup1_id) {
+          groupFormText = '3nd';
+          groupFormColor = 'amber';
+          confirmButton = true;
+        } else if (record.pickup2_id) {
+          groupFormText = 'Split';
+          groupFormColor = 'red accent-1';
+        } else if (this.state.newGroupPickup3 !== null) {
+          groupFormText = '--';
+        } else if (this.state.newGroupPickup2 !== null) {
+          groupFormText = '3rd';
         } else if (this.state.newGroupRecordId !== null) {
           groupFormText = '2nd';
         }
@@ -77,6 +114,7 @@ class Day extends Component {
             currentClientsGroup.push(pickup)
           }
         })
+
         return(
           <RecordTile
             key={index}
@@ -85,8 +123,11 @@ class Day extends Component {
             currentDriverId={currentDriverId}
             makeNewGroup={this.makeNewGroup}
             onClickGroup={this.onClickGroup}
+            onClickCancel={this.onClickCancel}
             groupFormText={groupFormText}
             groupFormColor={groupFormColor}
+            cancelButton={cancelButton}
+            confirmButton={confirmButton}
           />
         )
       })

@@ -47,15 +47,20 @@ const RecordTile = props => {
               text={props.groupFormText}
               color={props.groupFormColor}
               recordId={props.record.id}
+              clientId={client.id}
               onClickGroup={props.onClickGroup}
+              onClickCancel={props.onClickCancel}
+              makeNewGroup={props.makeNewGroup}
               groupFormText={props.groupFormText}
               groupFormColor={props.groupFormColor}
+              cancelButton={props.cancelButton}
+              confirmButton={props.confirmButton}
             />
 
     return (
       <tr key={index}>
-        <td>{form}</td>
-        <td>{driversForm}</td>
+        <td className='form-6'>{form}</td>
+        <td className='form-10'>{driversForm}</td>
         <td className={pickupColorClass}>{client.pickup_time}</td>
         <td className={dropoffColorClass}>{client.appointment_time}</td>
         <td className={groupColorClass}>{together}{client.comment}</td>

@@ -13,6 +13,7 @@ const AssignForm = props => {
     <div>
       <form className="form" onSubmit={props.handleForm}>
         <SelectField
+            size='6'
             value = {props.selectedDriverId}
             handleChange={props.handleChange}
             allDrivers={allDrivers}

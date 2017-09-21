@@ -55,6 +55,7 @@ class AssignDriverForm extends Component {
       <div className='row no-margin'>
         <form className="form" onSubmit={this.assignNewDriver}>
         <SelectField
+            size='12'
             value = {this.props.currentDriverId}
             handleChange={this.handleChange}
             allDrivers={driversMap}
