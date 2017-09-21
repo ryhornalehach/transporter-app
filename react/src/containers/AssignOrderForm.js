@@ -40,7 +40,7 @@ class AssignOrderForm extends Component {
       <div className='row no-margin'>
         <form className="form" onSubmit={this.assignNewOrder}>
         <Input
-            s={6}
+            s={12}
             name="order"
             type='select'
             defaultValue={this.props.currentOrder}

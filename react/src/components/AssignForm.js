@@ -13,9 +13,11 @@ const AssignForm = props => {
     <div>
       <form className="form" onSubmit={props.handleForm}>
         <SelectField
+            size='6'
             value = {props.selectedDriverId}
             handleChange={props.handleChange}
             allDrivers={allDrivers}
+            label='Assign new driver'
         />
         <input type="submit" name="Assign Driver" value="Assign Driver" className="btn waves-effect waves-light navbar-color-dark" />
       </form>

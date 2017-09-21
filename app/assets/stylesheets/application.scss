@@ -45,6 +45,14 @@
   margin-bottom: 0px;
 }
 
+.form-6 {
+  width: 6REM;
+}
+
+.form-10 {
+  width: 10REM;
+}
+
 textarea {
   height: 6rem;
 }
@@ -55,4 +63,8 @@ body {
 
 tr td {
   white-space: normal;
+}
+
+td {
+  padding: 5px;
 }
