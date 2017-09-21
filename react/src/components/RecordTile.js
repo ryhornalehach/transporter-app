@@ -41,6 +41,7 @@ const RecordTile = props => {
                       currentDriverId={currentDriverId}
                       currentRecordId={props.record.id}
                       currentOrder={currentOrder}
+                      currentPickupId={client.id}
                   />
 
     group = <GroupAssign
