@@ -6,7 +6,7 @@ const SelectField = props => {
   return(
     <div>
         <Input
-            s={6}
+            s={props.size}
             name="driver"
             type='select'
             defaultValue={props.value}
