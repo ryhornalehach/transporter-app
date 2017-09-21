@@ -13,7 +13,7 @@ class GroupAssign extends Component {
     let color = `btn waves-effect waves-light s6 ${this.props.groupFormColor}`;
     let cancelButton, confirmButton, groupButton, nameProperty;
 
-    if (this.props.groupFormText.toUpperCase() == '1ST' || this.props.groupFormText.toUpperCase() == 'SPLIT') {
+    if (this.props.groupFormText.toUpperCase() === '1ST' || this.props.groupFormText.toUpperCase() == 'SPLIT') {
       nameProperty = this.props.recordId;
     } else {
       nameProperty = this.props.clientId;

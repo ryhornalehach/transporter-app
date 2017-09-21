@@ -39,15 +39,18 @@ class AssignDriverForm extends Component {
   render() {
 
     let driversMap;
+    let counter = 0;
     let empty = { id: 0, first_name: '--', last_name: '--' };
+
     let drivers = this.state.allDrivers;
     drivers.unshift(empty);
     let iconConfirm = <i className="material-icons">check_circle</i>;
 
     driversMap = drivers.map ((driver) => {
       let name = `${driver.first_name} ${driver.last_name}`
+      counter++;
       return (
-        <option key={`${name}-${driver.id}`} value={driver.id} >{name}</option>
+        <option key={`${driver.id}-${this.props.currentPickupId}-${counter}`} value={driver.id} >{name}</option>
       )
     })
 
@@ -56,7 +59,7 @@ class AssignDriverForm extends Component {
         <form className="form" onSubmit={this.assignNewDriver}>
         <SelectField
             size='12'
-            value = {this.props.currentDriverId}
+            value={this.props.currentDriverId}
             handleChange={this.handleChange}
             allDrivers={driversMap}
             label={null}
