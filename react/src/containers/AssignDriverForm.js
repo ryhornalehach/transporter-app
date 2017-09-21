@@ -32,7 +32,10 @@ class AssignDriverForm extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ allDrivers: body.allDrivers })
+      let allDriversList = body.allDrivers
+      let empty = { id: 0, first_name: '--', last_name: '--' }
+      allDriversList.unshift(empty);
+      this.setState({ allDrivers: allDriversList })
     })
   }
 
@@ -40,13 +43,9 @@ class AssignDriverForm extends Component {
 
     let driversMap;
     let counter = 0;
-    let empty = { id: 0, first_name: '--', last_name: '--' };
-
-    let drivers = this.state.allDrivers;
-    drivers.unshift(empty);
     let iconConfirm = <i className="material-icons">check_circle</i>;
 
-    driversMap = drivers.map ((driver) => {
+    driversMap = this.state.allDrivers.map ((driver) => {
       let name = `${driver.first_name} ${driver.last_name}`
       counter++;
       return (
