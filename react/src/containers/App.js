@@ -3,7 +3,8 @@ import { Route, Switch, browserHistory } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { BrowserRouter, Link } from 'react-router-dom';
 import Pickup from './Pickup'
-import Pickups from './Pickups'
+// import Pickups from './Pickups'
+import PickupsList from './PickupsList'
 import Drivers from './Drivers'
 import Driver from './Driver'
 import Days from './Days'
@@ -23,7 +24,7 @@ class App extends Component {
       <div>
         <BrowserRouter history={history}>
           <Switch>
-            <Route exact path='/pickups' component={Pickups} />
+            <Route exact path='/pickups' component={PickupsList} />
             <Route exact path='/pickups/:id' component={Pickup} />
             <Route exact path='/drivers' component={Drivers} />
             <Route exact path='/drivers/:id' component={Driver} />

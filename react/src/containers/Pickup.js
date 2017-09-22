@@ -127,18 +127,7 @@ class Pickup extends Component {
       buttonConfirmDropoff = null;
     }
 
-    if (this.state.currentUser.id == this.state.pickupInfo.driver_id) {
-      pickupTile = <PickupTile
-                        pickupInfo={this.state.pickupInfo}
-                        showUser={this.state.showUser}
-                        pickedUp={this.state.pickedUp}
-                        droppedOff={this.state.droppedOff}
-                        buttonConfirmPickup={buttonConfirmPickup}
-                        buttonConfirmDropoff={buttonConfirmDropoff}
-                        handlePickupButton={this.handlePickupButton}
-                        handleDropoffButton={this.handleDropoffButton}
-                  />
-    } else if (this.state.currentUser.admin) {
+    if (this.state.currentUser.admin) {
       pickupTile = <AdminPickupTile
                         pickupInfo={this.state.pickupInfo}
                         showUser={this.state.showUser}
@@ -150,7 +139,16 @@ class Pickup extends Component {
                         handleDropoffButton={this.handleDropoffButton}
                   />
     } else {
-      pickupTile = 'You are not authorized'
+      pickupTile = <PickupTile
+                        pickupInfo={this.state.pickupInfo}
+                        showUser={this.state.showUser}
+                        pickedUp={this.state.pickedUp}
+                        droppedOff={this.state.droppedOff}
+                        buttonConfirmPickup={buttonConfirmPickup}
+                        buttonConfirmDropoff={buttonConfirmDropoff}
+                        handlePickupButton={this.handlePickupButton}
+                        handleDropoffButton={this.handleDropoffButton}
+                  />
     }
     if (this.state.currentUser.admin) {
 

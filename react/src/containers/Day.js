@@ -75,7 +75,6 @@ class Day extends Component {
     if (!this.state.error) {
       dayTile = new Date (this.state.day.date);
 
-      // driversRecordsArranged = this.state.drivers.forEach((driver) => {
         records = this.state.records.map( (record, index) => {
           let currentClientsGroup = [];
           let cancelButton = this.state.cancelButton;
@@ -117,8 +116,6 @@ class Day extends Component {
             }
           })
           return(
-            // <div>
-            // {driver.first_name}
             <RecordTile
               key={index}
               record={record}
@@ -132,11 +129,8 @@ class Day extends Component {
               cancelButton={cancelButton}
               confirmButton={confirmButton}
             />
-            // </div>
           )
         })
-      // })
-
     } else {
       dayTile = 'You are not authorized';
     }
