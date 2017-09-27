@@ -50,6 +50,7 @@ class Pickups extends Component {
       let counter = 0;
       pickups = filteredClients.map( (pickup, index) => {
         let cardClassName;
+        let currentClientsGroup = [];
         if (pickup.picked_up && pickup.dropped_off) {
           cardClassName = 'dropped_off';
         } else if (pickup.picked_up) {
@@ -62,6 +63,7 @@ class Pickups extends Component {
         }
         return(
           <PickupIndexTile
+            currentClientsGroup={currentClientsGroup}
             key={index}
             id={pickup.id}
             pickup={pickup}

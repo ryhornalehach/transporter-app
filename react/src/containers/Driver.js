@@ -28,12 +28,14 @@ class Driver extends Component {
 
   render() {
     let driverTile;
-    if (this.state.currentUser.role === 'admin' || this.state.currentUser.role === 'manager') {
+    if (this.state.currentUser.admin) {
+      console.log('yes')
       driverTile = <DriverTile
                         driverInfo={this.state.driverInfo}
                         clients={this.state.clients}
                   />
     } else {
+      console.log('no')
       driverTile = 'You are not authorized'
     }
 
