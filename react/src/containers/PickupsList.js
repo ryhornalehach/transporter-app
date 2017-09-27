@@ -9,7 +9,6 @@ class PickupsList extends Component {
     this.state = {
       pickups: [],
       records: [],
-      drivers: [],
       currentUser: {},
       showUser: false,
     }
@@ -21,7 +20,7 @@ class PickupsList extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ showUser: body.auth, currentUser: body.user, drivers: body.allDrivers })
+      this.setState({ showUser: body.auth, currentUser: body.user })
     })
 
     fetch('/api/v1/pickups',{
@@ -36,36 +35,29 @@ class PickupsList extends Component {
   render() {
     let pickups;
 
-    if (this.state.showUser && !this.state.currentUser.admin) {
-      // let counter = 0;
+    if (this.state.showUser) {
+      let counter = 0;
 
       pickups = this.state.records.map( (record, index) => {
         let currentClientsGroup = [];
-        let cardClassName, groupText, groupColor;
+        let cardClassName;
 
-        // if (pickup.picked_up && pickup.dropped_off) {
-        //   cardClassName = 'dropped_off';
-        // } else if (pickup.picked_up) {
-        //   cardClassName = 'picked_up';
-        // } else {
-        //   counter += 1;
-        //   if (counter > 1 && this.state.currentUser.admin !== true) {
-        //     cardClassName = 'invisible';
-        //   }
-        // }
-
-
+        if (counter > 0) {
+          cardClassName = 'invisible';
+        }
 
         this.state.pickups.forEach((pickup) => {
           if (record.pickup1_id === pickup.id || record.pickup2_id === pickup.id || record.pickup3_id === pickup.id) {
             currentClientsGroup.push(pickup)
+            if (!pickup.dropped_off) {
+              counter += 1;
+            }
           }
         })
+
         return(
           <PickupIndexTile
             currentClientsGroup={currentClientsGroup}
-            groupText={groupText}
-            groupColor={groupColor}
             key={index}
             id={record.id}
             record={record}
@@ -73,37 +65,7 @@ class PickupsList extends Component {
           />
         )
       })
-    }
-    // else if (this.state.showUser && this.state.currentUser.admin) {
-    //   pickups = filteredClients.map( (pickup, index) => {
-    //     let cardClassName, driverName;
-    //     if (pickup.picked_up && pickup.dropped_off) {
-    //       cardClassName = 'dropped_off';
-    //     } else if (pickup.picked_up) {
-    //       cardClassName = 'picked_up';
-    //     }
-    //     if (pickup.driver_id) {
-    //       this.state.drivers.forEach ((driver) => {
-    //         if (driver.id === pickup.driver_id) {
-    //           driverName = `${driver.first_name} ${driver.last_name}`;
-    //         }
-    //       })
-    //
-    //     } else {
-    //       driverName = 'N/A';
-    //     }
-    //     return(
-    //       <AdminPickupIndexTile
-    //         key={index}
-    //         id={pickup.id}
-    //         pickup={pickup}
-    //         cardClassName={cardClassName}
-    //         driverName={driverName}
-    //       />
-    //     )
-    //   })
-    // }
-    else {
+    } else {
       pickups = 'Sorry, you are not authorized to see the contents';
     }
 

@@ -24,8 +24,7 @@ class Drivers extends Component {
 
   render() {
     let drivers;
-    let roles = ['admin', 'manager'];
-    if (this.state.showUser && roles.includes(this.state.currentUser.role)) {
+    if (this.state.showUser && this.state.currentUser.admin) {
       drivers = this.state.allDrivers.map( (driver, index) => {
         return(
           <DriverIndexTile

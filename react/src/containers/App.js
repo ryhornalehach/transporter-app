@@ -3,7 +3,6 @@ import { Route, Switch, browserHistory } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { BrowserRouter, Link } from 'react-router-dom';
 import Pickup from './Pickup'
-// import Pickups from './Pickups'
 import PickupsList from './PickupsList'
 import Drivers from './Drivers'
 import Driver from './Driver'

@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     if current_user
-      if current_user.role === 'admin' || current_user.role === 'manager'
+      if current_user.admin
         allDrivers = []
         User.where(role: 'driver').each do |user|
           allDrivers << user
