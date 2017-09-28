@@ -44,19 +44,19 @@ const PickupTile = props => {
             <div className="card-action">
 
               <div className="row">
-                <div className="col s5 large-text">
+                <div className="col s12 m5 large-text">
                   <b>{pickupText}</b>
                 </div>
-                <div className="col s7">
+                <div className="col s12 m7">
                   {buttonConfirmPickup}
                 </div>
               </div>
 
               <div className="row">
-                <div className="col s5 large-text">
+                <div className="col s12 m5 large-text">
                   <b>{dropoffText}</b>
                 </div>
-                <div className="col s7">
+                <div className="col s12 m7">
                   {buttonConfirmDropoff}
                 </div>
               </div>
