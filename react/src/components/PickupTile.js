@@ -2,9 +2,10 @@ import React from 'react';
 
 const PickupTile = props => {
   let addressInformation, typeOfAddress = '';
-
-
   let pickupText, dropoffText, link;
+  let buttonConfirmPickup = props.buttonConfirmPickup;
+  let buttonConfirmDropoff = props.buttonConfirmDropoff;
+
   if (props.pickedUp) {
     pickupText = 'Client was successfully picked up'
     addressInformation = `${props.pickupInfo.dropoff_address}, ${props.pickupInfo.dropoff_city}`;
@@ -21,6 +22,17 @@ const PickupTile = props => {
   }
   link = `https://www.google.com/maps/place/${addressInformation}`
 
+  if (props.status == 'not_yet') {
+    addressInformation = 'You must pickup previous client before.'
+    link = '#'
+    buttonConfirmPickup = null;
+  } else if (props.status == 'pickup_only') {
+    addressInformation = `${props.pickupInfo.pickup_address}, ${props.pickupInfo.pickup_city}`;
+    typeOfAddress = 'Pickup'
+    link = `https://www.google.com/maps/place/${addressInformation}`
+    buttonConfirmDropoff = null;
+  }
+
   return (
     <div className="row">
       <div className="card horizontal">
@@ -36,7 +48,7 @@ const PickupTile = props => {
                   <b>{pickupText}</b>
                 </div>
                 <div className="col s7">
-                  {props.buttonConfirmPickup}
+                  {buttonConfirmPickup}
                 </div>
               </div>
 
@@ -45,7 +57,7 @@ const PickupTile = props => {
                   <b>{dropoffText}</b>
                 </div>
                 <div className="col s7">
-                  {props.buttonConfirmDropoff}
+                  {buttonConfirmDropoff}
                 </div>
               </div>
 

@@ -49,9 +49,40 @@ class Api::V1::PickupsController < ApplicationController
   def show
     if current_user
     pickup = Pickup.find(params[:id])
-      if is_driver(current_user.id, pickup.id) || current_user.role == 'admin' || current_user.role == 'manager'
-        driver = pickup.driver
-        render json: { 'pickup': pickup, 'driver': driver }
+      if is_driver(current_user.id, pickup.id) || current_user.admin
+        record = Record.where('pickup1_id = ? or pickup2_id = ? or pickup3_id = ?', pickup.id, pickup.id, pickup.id)[0]
+        if pickup.id == record.pickup1_id
+          if !record.pickup2_id || record.pickup2_id == 0
+            status = 'ok'
+          elsif !record.pickup3_id && Pickup.find(record.pickup2_id).picked_up
+            status = 'ok'
+          elsif record.pickup3_id == 0 && Pickup.find(record.pickup2_id).picked_up
+            status = 'ok'
+          elsif record.pickup3_id > 0 && Pickup.find(record.pickup3_id).picked_up
+            status = 'ok'
+          else
+            status = 'pickup_only'
+          end
+        elsif pickup.id == record.pickup2_id
+          if Pickup.find(record.pickup1_id).picked_up && !record.pickup3_id
+            status = 'ok'
+          elsif Pickup.find(record.pickup1_id).picked_up && record.pickup3_id == 0
+            status = 'ok'
+          elsif record.pickup3_id > 0 && Pickup.find(record.pickup3_id).picked_up
+            status = 'ok'
+          elsif record.pickup3_id > 0 && !Pickup.find(record.pickup3_id).picked_up
+            status = 'pickup_only'
+          else
+            status = 'not_yet'
+          end
+        elsif pickup.id == record.pickup3_id
+          if Pickup.find(record.pickup1_id).picked_up && Pickup.find(record.pickup2_id).picked_up
+            status = 'ok'
+          else
+            status = 'not_yet'
+          end
+        end
+        render json: { 'pickup': pickup, 'status': status }
       else
         render json: { error: 'You are not authorized' }
       end
