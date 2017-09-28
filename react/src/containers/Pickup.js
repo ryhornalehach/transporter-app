@@ -14,6 +14,7 @@ class Pickup extends Component {
       pickedUp: false,
       droppedOff: false,
       showUser: false,
+      status: null,
       error: null
     }
     this.handlePickupButton = this.handlePickupButton.bind(this);
@@ -28,7 +29,7 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(pickup => {
-      this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off })
+      this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, status: pickup.status })
     })
 
     fetch('/api/v1/users',{
@@ -99,6 +100,7 @@ class Pickup extends Component {
                   />
     } else {
       pickupTile = <PickupTile
+                        status={this.state.status}
                         pickupInfo={this.state.pickupInfo}
                         showUser={this.state.showUser}
                         pickedUp={this.state.pickedUp}
