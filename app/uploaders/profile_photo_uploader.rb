@@ -6,14 +6,14 @@ class ProfilePhotoUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.test?
-    storage :file
+    storage :file ### using local file storage for test environment
   else
-    storage :fog
+    storage :fog  ### using AWS storage for development and production environments
   end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
+  def store_dir     ### setting up the working directory for uploaded files. Using unique folder names for different users
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 

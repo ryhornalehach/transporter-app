@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'listen'
 gem "devise"  # autentication
 gem "carrierwave" # uploading files gem
-gem 'fog'
+gem 'fog'   # cloud service library (needed for AWS)
 gem 'materialize-sass'  # adding materialize css
 gem 'will_paginate', '~> 3.1.0' # pagination gem
 gem "roo", "~> 2.7.0" # working with XLS files
