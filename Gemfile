@@ -8,15 +8,16 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'listen'
-gem "devise"
-gem "carrierwave"
-gem 'fog'
-gem 'materialize-sass'
-gem 'will_paginate', '~> 3.1.0'
+gem "devise"  # autentication
+gem "carrierwave" # uploading files gem
+gem 'fog'   # cloud service library (needed for AWS)
+gem 'materialize-sass'  # adding materialize css
+gem 'will_paginate', '~> 3.1.0' # pagination gem
+gem "roo", "~> 2.7.0" # working with XLS files
 
 group :development, :test do
   gem 'capybara'
-  gem 'dotenv-rails'
+  gem 'dotenv-rails'  # handling the environmental variables
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'rails-controller-testing'
@@ -24,12 +25,12 @@ group :development, :test do
   gem 'shoulda'
   gem 'valid_attribute'
   gem "faker", github: "stympy/faker"
-  gem 'mailcatcher'
+  gem 'mailcatcher' # testing the mail sending functionality
 end
 
 group :test do
-  gem 'coveralls', require: false
-  gem 'database_cleaner'
+  gem 'coveralls', require: false # adding coveralls badge
+  gem 'database_cleaner'  # database cleaner for test environment
 end
 
 group :production do

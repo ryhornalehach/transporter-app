@@ -1,20 +1,17 @@
-class ProfilePhotoUploader < CarrierWave::Uploader::Base
+class ImportsUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  if Rails.env.test?
-    storage :file ### using local file storage for test environment
-  else
-    storage :fog  ### using AWS storage for development and production environments
-  end
+  storage :file   ### using file storage for this uploader
+  # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir     ### setting up the working directory for uploaded files. Using unique folder names for different users
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  def store_dir
+    "uploads/imports" ### setting up the directory
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -42,6 +39,9 @@ class ProfilePhotoUploader < CarrierWave::Uploader::Base
   # def extension_whitelist
   #   %w(jpg jpeg gif png)
   # end
+  def extension_white_list
+    %w(xlsx)  ### allowing only xlsx files to be uploaded
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

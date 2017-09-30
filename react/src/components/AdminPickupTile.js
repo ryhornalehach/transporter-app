@@ -17,7 +17,7 @@ const AdminPickupTile = props => {
   } else {
     dropoffText = 'Client has not been dropped off yet'
   }
-  
+
   return (
     <div className="row">
       <div className="card horizontal">
@@ -30,19 +30,19 @@ const AdminPickupTile = props => {
             <div className="card-action">
 
               <div className="row">
-                <div className="col s5 large-text">
+                <div className="col s12 m5 large-text">
                   <b>{pickupText}</b>
                 </div>
-                <div className="col s7">
+                <div className="col s12 m7">
                   {props.buttonConfirmPickup}
                 </div>
               </div>
 
               <div className="row">
-                <div className="col s5 large-text">
+                <div className="col s12 m5 large-text">
                   <b>{dropoffText}</b>
                 </div>
-                <div className="col s7">
+                <div className="col s12 m7">
                   {props.buttonConfirmDropoff}
                 </div>
               </div>
