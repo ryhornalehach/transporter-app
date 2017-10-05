@@ -108,6 +108,14 @@ class Api::V1::PickupsController < ApplicationController
                   pickup.dropped_off = current_state
                   pickup.save
                   render json: pickup
+              elsif data['stateType'] === 'edit'  # manual edit of the clien's info
+                  pickup.update(name: data['currentPickup']['name'], comment: data['currentPickup']['comment'],
+                      pickup_address: data['currentPickup']['pickupAddress'], pickup_city: data['currentPickup']['pickupCity'],
+                      dropoff_address: data['currentPickup']['dropoffAddress'], dropoff_city: data['currentPickup']['dropoffCity'],
+                      pickup_time: data['currentPickup']['pickupTime'], appointment_time: data['currentPickup']['appointmentTime'],
+                      phone: data['currentPickup']['phone'])
+                  pickup.save
+                  render json: { 'notice': 'Client Info Updated' }
               end
           else
               render json: { 'error': 'You are not authorized' }
