@@ -22,8 +22,7 @@ class Pickup extends Component {
   }
 
   componentDidMount() {
-    let idRegex = /[0-9]+\/{0,1}$/
-    let pickupId = this.props.location.pathname.match(idRegex)[0]
+    let pickupId = this.props.match.params.id
     fetch(`/api/v1/pickups/${pickupId}`,{
       credentials: "same-origin"
     })
@@ -72,7 +71,7 @@ class Pickup extends Component {
   }
 
   render() {
-    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, origin, destination;
+    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, origin, destination, link;
 
     if (this.state.droppedOff){
       buttonConfirmDropoff = <button type="button" className="btn waves-effect waves-light red" onClick={this.handleDropoffButton}>Not dropped off yet?</button>
@@ -98,6 +97,9 @@ class Pickup extends Component {
                         handlePickupButton={this.handlePickupButton}
                         handleDropoffButton={this.handleDropoffButton}
                   />
+      link = <Link to={`/pickups/${this.state.pickupId}/edit`} className="btn waves-effect waves-light navbar-color-dark">
+                  Edit client information
+              </Link>
     } else {
       pickupTile = <PickupTile
                         status={this.state.status}
@@ -110,6 +112,9 @@ class Pickup extends Component {
                         handlePickupButton={this.handlePickupButton}
                         handleDropoffButton={this.handleDropoffButton}
                   />
+      link = <Link to='/pickups' className="btn waves-effect waves-light navbar-color-dark">
+                  Back to all clients
+              </Link>
     }
 
     origin = `${this.state.pickupInfo.pickup_address}, ${this.state.pickupInfo.pickup_city}`
@@ -121,7 +126,7 @@ class Pickup extends Component {
         {pickupTile}
         <div className="row">
           <div className="col s12 l6">
-            <Link to='/pickups' className="btn waves-effect waves-light navbar-color-dark">Back to all clients</Link>
+            {link}
           </div>
           <div className="row">
             <div className="col s12">

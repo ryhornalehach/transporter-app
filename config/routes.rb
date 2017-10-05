@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :jobapplications
   resources :imports, only: [:new, :create]
   root 'static_pages#homepage'
-  resources :pickups, only: [:index, :show], to: 'static_pages#index'
+  resources :pickups, only: [:index, :show, :edit], to: 'static_pages#index'
   resources :drivers, only: [:index, :show], to: 'static_pages#index'
   resources :days, only: [:index, :show], to: 'static_pages#index'
 
