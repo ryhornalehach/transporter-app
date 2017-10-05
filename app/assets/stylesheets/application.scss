@@ -1,5 +1,8 @@
-@import "materialize";
-// @import "*";
+@import "materialize";   //// import Materialize styling first
+// @import "*";           //// import all other .css files
+
+//// custom styling goes next
+
 .navbar-color {
   background: #78909C;
 }
@@ -72,4 +75,12 @@ tr td {
 
 td {
   padding: 5px;
+}
+
+.notice {
+  color: #018312;
+}
+
+.error {
+  color: #9c0900;
 }
