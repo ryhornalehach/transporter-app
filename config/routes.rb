@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :pickups, only: [:index, :show, :update]
+      resources :pickups, only: [:index, :show, :update, :create]
       resources :users, only: [:index, :update, :show]
       resources :days, only: [:index, :show, :update]
       resources :records, only: [:update]

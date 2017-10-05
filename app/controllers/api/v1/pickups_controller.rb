@@ -116,4 +116,27 @@ class Api::V1::PickupsController < ApplicationController
           render json: { 'error': 'You are not authorized' }
       end
   end
+
+  def create    # manual creation of new pickups
+      data = JSON.parse(request.body.read)
+      if current_user
+          if current_user.admin   # verifying the user
+              new_pickup = Pickup.new( name: data['name'], pickup_time: data['pickupTime'],
+                appointment_time: data['appointmentTime'], phone: data['phone'],
+                comment: data['comment'], pickup_address: data['pickupAddress'],
+                pickup_city: data['pickupCity'], dropoff_address: data['dropoffAddress'],
+                dropoff_city: data['dropoffCity'] )
+              if new_pickup.save  # creating new Pickup and verifying that it is saved successfully
+                Record.create(day_id: Day.last.id, pickup1_id: new_pickup.id ) # creating the Record corresponding to new Pickup
+                render json: { 'notice': 'User Info Updated' }
+              else
+                render json: { 'error': 'Error while saving new pickup' }
+              end
+          else
+              render json: { 'error': 'You are not authorized' }
+          end
+      else
+          render json: { 'error': 'You are not authorized' }
+      end
+  end
 end

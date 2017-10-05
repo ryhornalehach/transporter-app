@@ -8,6 +8,7 @@ import Drivers from './Drivers'
 import Driver from './Driver'
 import Days from './Days'
 import Day from './Day'
+import NewPickup from './NewPickup'
 
 const history = createBrowserHistory();
 
@@ -29,6 +30,7 @@ class App extends Component {
             <Route exact path='/drivers/:id' component={Driver} />
             <Route exact path='/days' component={Days} />
             <Route exact path='/days/:id' component={Day} />
+            <Route exact path='/imports/new' component={NewPickup} />
           </Switch>
         </BrowserRouter>
       </div>
