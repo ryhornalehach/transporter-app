@@ -150,6 +150,7 @@ class Day extends Component {
                 <th>Comments</th>
                 <th>Group</th>
                 <th>Name</th>
+                <th>Phone</th>
                 <th>Pickup Address</th>
                 <th>Pickup City</th>
                 <th>Dropoff Address</th>

@@ -74,6 +74,7 @@ const RecordTile = props => {
         <td className={groupColorClass}>{together}{client.comment}</td>
         <td>{group}</td>
         <td className={textColorClass}><a href={`/pickups/${client.id}`}>{client.name}</a></td>
+        <td className={textColorClass}>{client.phone}</td>
         <td className={textColorClass}>{client.pickup_address}</td>
         <td className={textColorClass}>{client.pickup_city}</td>
         <td className={textColorClass}>{client.dropoff_address}</td>
