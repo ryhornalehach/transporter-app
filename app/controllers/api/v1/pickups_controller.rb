@@ -53,36 +53,36 @@ class Api::V1::PickupsController < ApplicationController
         record = Record.where('pickup1_id = ? or pickup2_id = ? or pickup3_id = ?', pickup.id, pickup.id, pickup.id)[0]
         if pickup.id == record.pickup1_id
           if !record.pickup2_id || record.pickup2_id == 0
-            status = 'ok'
+            group_status = 'ok'
           elsif !record.pickup3_id && Pickup.find(record.pickup2_id).picked_up
-            status = 'ok'
+            group_status = 'ok'
           elsif record.pickup3_id == 0 && Pickup.find(record.pickup2_id).picked_up
-            status = 'ok'
+            group_status = 'ok'
           elsif record.pickup3_id > 0 && Pickup.find(record.pickup3_id).picked_up
-            status = 'ok'
+            group_status = 'ok'
           else
-            status = 'pickup_only'
+            group_status = 'pickup_only'
           end
         elsif pickup.id == record.pickup2_id
           if Pickup.find(record.pickup1_id).picked_up && !record.pickup3_id
-            status = 'ok'
+            group_status = 'ok'
           elsif Pickup.find(record.pickup1_id).picked_up && record.pickup3_id == 0
-            status = 'ok'
+            group_status = 'ok'
           elsif record.pickup3_id > 0 && Pickup.find(record.pickup3_id).picked_up
-            status = 'ok'
+            group_status = 'ok'
           elsif record.pickup3_id > 0 && !Pickup.find(record.pickup3_id).picked_up
-            status = 'pickup_only'
+            group_status = 'pickup_only'
           else
-            status = 'not_yet'
+            group_status = 'not_yet'
           end
         elsif pickup.id == record.pickup3_id
           if Pickup.find(record.pickup1_id).picked_up && Pickup.find(record.pickup2_id).picked_up
-            status = 'ok'
+            group_status = 'ok'
           else
-            status = 'not_yet'
+            group_status = 'not_yet'
           end
         end
-        render json: { 'pickup': pickup, 'status': status }
+        render json: { 'pickup': pickup, 'group_status': group_status }
       else
         render json: { error: 'You are not authorized' }
       end
@@ -97,15 +97,19 @@ class Api::V1::PickupsController < ApplicationController
       pickup = Pickup.find(params[:id])
       if current_user
           if is_driver(current_user.id, pickup.id) || current_user.role == 'admin' || current_user.role == 'manager'
-              if data['stateType'] === 'picked_up'
+              if data['stateType'] === 'picked_up'      # marking client as picked up
                   pickup.picked_up = current_state
                   if current_state == false
                       pickup.dropped_off = current_state
                   end
                   pickup.save
                   render json: pickup
-              elsif data['stateType'] === 'dropped_off'
+              elsif data['stateType'] === 'dropped_off' # marking client as dropped off
                   pickup.dropped_off = current_state
+                  pickup.save
+                  render json: pickup
+              elsif data['stateType'] === 'statusChange' # changing the status of the cilent
+                  pickup.status = data['pickupStatus']
                   pickup.save
                   render json: pickup
               elsif data['stateType'] === 'edit'  # manual edit of the clien's info
