@@ -49,7 +49,9 @@ class PickupsList extends Component {
         this.state.pickups.forEach((pickup) => {
           if (record.pickup1_id === pickup.id || record.pickup2_id === pickup.id || record.pickup3_id === pickup.id) {
             currentClientsGroup.push(pickup)
-            if (!pickup.dropped_off) {
+            if (pickup.status && pickup.status.includes("cancel")) {
+
+            } else if (!pickup.dropped_off) {
               counter += 1;
             }
           }

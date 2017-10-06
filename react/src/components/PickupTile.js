@@ -22,11 +22,11 @@ const PickupTile = props => {
   }
   link = `https://www.google.com/maps/place/${addressInformation}`
 
-  if (props.status == 'not_yet') {
+  if (props.groupStatus == 'not_yet') {
     addressInformation = 'You must pickup previous client before.'
     link = '#'
     buttonConfirmPickup = null;
-  } else if (props.status == 'pickup_only') {
+  } else if (props.groupStatus == 'pickup_only') {
     addressInformation = `${props.pickupInfo.pickup_address}, ${props.pickupInfo.pickup_city}`;
     typeOfAddress = 'Pickup'
     link = `https://www.google.com/maps/place/${addressInformation}`

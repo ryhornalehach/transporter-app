@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PickupTile from '../components/PickupTile';
 import AdminPickupTile from '../components/AdminPickupTile';
 import MapComponent from '../components/MapComponent';
+import StatusAssignForm from '../components/StatusAssignForm';
 
 class Pickup extends Component {
   constructor(props) {
@@ -14,11 +15,14 @@ class Pickup extends Component {
       pickedUp: false,
       droppedOff: false,
       showUser: false,
-      status: null,
+      groupStatus: null,
+      pickupStatus: null,
       error: null
     }
     this.handlePickupButton = this.handlePickupButton.bind(this);
     this.handleDropoffButton = this.handleDropoffButton.bind(this);
+    this.handleStatusButton = this.handleStatusButton.bind(this);
+    this.handlePickupStatus = this.handlePickupStatus.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +32,7 @@ class Pickup extends Component {
     })
     .then(response => response.json())
     .then(pickup => {
-      this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, status: pickup.status })
+      this.setState({ pickupInfo: pickup.pickup, pickupId: pickupId, pickedUp: pickup.pickup.picked_up, droppedOff: pickup.pickup.dropped_off, groupStatus: pickup.group_status, pickupStatus: pickup.pickup.status })
     })
 
     fetch('/api/v1/users',{
@@ -70,8 +74,29 @@ class Pickup extends Component {
     })
   }
 
+  handleStatusButton(event) {
+    event.preventDefault()
+    fetch(`/api/v1/pickups/${this.state.pickupId}/`, {
+      method: 'PATCH',
+      credentials: "same-origin",
+      body: JSON.stringify({ pickupStatus: this.state.pickupStatus, stateType: 'statusChange' })
+    })
+    .then(response => response.json())
+    .then(body =>{
+      this.setState({ pickupStatus: body.status })
+    })
+  }
+
+  handlePickupStatus(event) {
+    this.setState({ pickupStatus: event.target.value })
+  }
+
   render() {
-    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, origin, destination, link;
+    let buttonConfirmPickup, buttonConfirmDropoff, pickupTile, origin, destination, link, statusAssignForm;
+    let pickupStatus = this.state.pickupStatus;
+    if (!pickupStatus) {
+      pickupStatus = '';
+    }
 
     if (this.state.droppedOff){
       buttonConfirmDropoff = <button type="button" className="btn waves-effect waves-light red" onClick={this.handleDropoffButton}>Not dropped off yet?</button>
@@ -100,9 +125,14 @@ class Pickup extends Component {
       link = <Link to={`/pickups/${this.state.pickupId}/edit`} className="btn waves-effect waves-light navbar-color-dark">
                   Edit client information
               </Link>
+      statusAssignForm = <StatusAssignForm
+                            handleStatusButton={this.handleStatusButton}
+                            handlePickupStatus={this.handlePickupStatus}
+                            pickupStatus={pickupStatus}
+                          />
     } else {
       pickupTile = <PickupTile
-                        status={this.state.status}
+                        groupStatus={this.state.groupStatus}
                         pickupInfo={this.state.pickupInfo}
                         showUser={this.state.showUser}
                         pickedUp={this.state.pickedUp}
@@ -128,13 +158,16 @@ class Pickup extends Component {
           <div className="col s12 l6">
             {link}
           </div>
-          <div className="row">
-            <div className="col s12">
-              <MapComponent
-                    origin={origin}
-                    destination={destination}
-              />
-            </div>
+          <div className="col s12 l6">
+            {statusAssignForm}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s12">
+            <MapComponent
+                  origin={origin}
+                  destination={destination}
+            />
           </div>
         </div>
       </div>

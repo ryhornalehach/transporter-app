@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930011131) do
+ActiveRecord::Schema.define(version: 20171006171300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20170930011131) do
     t.string   "appointment_time"
     t.string   "pickup_time"
     t.string   "phone"
+    t.string   "status"
     t.index ["driver_id"], name: "index_pickups_on_driver_id", using: :btree
   end
 

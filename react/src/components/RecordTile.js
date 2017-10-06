@@ -4,7 +4,7 @@ import AssignDriverForm from '../containers/AssignDriverForm';
 import GroupAssign from '../containers/GroupAssign';
 
 const RecordTile = props => {
-  let dropoffColorClass, pickupColorClass, form;
+  let dropoffColorClass, pickupColorClass, textColorClass, form;
   let group, driversForm, groupRecordsDisplay, groupColorClass, together;
   let currentOrder, currentDriverId;
 
@@ -37,6 +37,13 @@ const RecordTile = props => {
     } else {
       currentDriverId = 0;
     }
+
+    if (client.status && client.status.includes("cancel")) {
+      groupColorClass = 'red accent-1';
+      dropoffColorClass = 'red accent-1';
+      pickupColorClass = 'red accent-1';
+      textColorClass = 'red accent-1';
+    }
     driversForm = <AssignDriverForm
                       currentDriverId={currentDriverId}
                       currentRecordId={props.record.id}
@@ -66,11 +73,11 @@ const RecordTile = props => {
         <td className={dropoffColorClass}>{client.appointment_time}</td>
         <td className={groupColorClass}>{together}{client.comment}</td>
         <td>{group}</td>
-        <td><a href={`/pickups/${client.id}`}>{client.name}</a></td>
-        <td>{client.pickup_address}</td>
-        <td>{client.pickup_city}</td>
-        <td>{client.dropoff_address}</td>
-        <td>{client.dropoff_city}</td>
+        <td className={textColorClass}><a href={`/pickups/${client.id}`}>{client.name}</a></td>
+        <td className={textColorClass}>{client.pickup_address}</td>
+        <td className={textColorClass}>{client.pickup_city}</td>
+        <td className={textColorClass}>{client.dropoff_address}</td>
+        <td className={textColorClass}>{client.dropoff_city}</td>
       </tr>
     )
   })

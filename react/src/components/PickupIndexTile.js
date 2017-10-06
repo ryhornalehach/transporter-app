@@ -17,7 +17,9 @@ const PickupIndexTile = props => {
       groupText = 'Together (3rd); ';
     }
 
-    if (pickup.dropped_off) {
+    if (pickup.status && pickup.status.includes("cancel")) {
+      cardClassName = "card card-size horizontal red accent-1";
+    } else if (pickup.dropped_off) {
       cardClassName = "card card-size horizontal grey lighten-1 grey-text text-darken-1";
       status = 'Dropped off';
     } else if (pickup.picked_up) {
@@ -28,6 +30,7 @@ const PickupIndexTile = props => {
     } else {
       cardClassName = "card card-size horizontal";
     }
+
 
 
     return (
