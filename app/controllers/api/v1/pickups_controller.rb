@@ -127,6 +127,7 @@ class Api::V1::PickupsController < ApplicationController
 
   def create    # manual creation of new pickups
       data = JSON.parse(request.body.read)
+      binding.pry
       if current_user
           if current_user.admin   # verifying the user
               new_pickup = Pickup.new( name: data['name'], pickup_time: data['pickupTime'],
@@ -135,7 +136,7 @@ class Api::V1::PickupsController < ApplicationController
                 pickup_city: data['pickupCity'], dropoff_address: data['dropoffAddress'],
                 dropoff_city: data['dropoffCity'] )
               if new_pickup.save  # creating new Pickup and verifying that it is saved successfully
-                Record.create(day_id: Day.last.id, pickup1_id: new_pickup.id ) # creating the Record corresponding to new Pickup
+                Record.create(day_id: data['dayId'], pickup1_id: new_pickup.id ) # creating the Record corresponding to new Pickup
                 render json: { 'notice': 'User Info Updated' }
               else
                 render json: { 'error': 'Error while saving new pickup' }

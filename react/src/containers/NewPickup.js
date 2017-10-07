@@ -15,17 +15,34 @@ class NewPickup extends Component {
       pickupCity: '',
       dropoffAddress: '',
       dropoffCity: '',
+      openDays: [],
+      selectedDay: '',
       error: null,
       notice: null
     }
     this.handleTextField = this.handleTextField.bind(this)  //binding the functions
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDayChange = this.handleDayChange.bind(this)
+  }
+
+  componentDidMount() {
+    fetch('/api/v1/days',{
+      credentials: "same-origin"
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ openDays: body.openDays, selectedDay: body.openDays[0][0].id })
+    })
   }
 
   handleTextField(event) {    // function to handle the text fields.
     let value = event.target.value;   // current value of the field
     let name = event.target.name;     // name of the corresponding text field
     this.setState({ [name]: value })  // setting the state with the value of the corresponding field
+  }
+
+  handleDayChange(event) {    // function to handle the select field.
+    this.setState({ selectedDay: event.target.value })  // setting the state with the value of the field
   }
 
   handleSubmit(event) {     // function to handle the submit of the form
@@ -48,7 +65,7 @@ class NewPickup extends Component {
         credentials: "same-origin",
         body: JSON.stringify({ name: currentPickup.name, pickupTime: currentPickup.pickupTime,
         appointmentTime: currentPickup.appointmentTime, phone: currentPickup.phone, comment: currentPickup.comment,
-        pickupAddress: currentPickup.pickupAddress, pickupCity: currentPickup.pickupCity,
+        pickupAddress: currentPickup.pickupAddress, pickupCity: currentPickup.pickupCity, dayId: this.state.selectedDay,
         dropoffAddress: currentPickup.dropoffAddress, dropoffCity: currentPickup.dropoffCity })
       })
       .then(response => response.json())
@@ -82,6 +99,9 @@ class NewPickup extends Component {
                     dropoffCity={this.state.dropoffCity}
                     handleTextField={this.handleTextField}
                     handleSubmit={this.handleSubmit}
+                    handleDayChange={this.handleDayChange}
+                    selectedDay={this.state.selectedDay}
+                    openDays={this.state.openDays}
                 />
           </div>
     )

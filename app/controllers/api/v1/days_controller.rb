@@ -5,7 +5,10 @@ class Api::V1::DaysController < ApplicationController
     if current_user
       if current_user.role === 'admin' || current_user.role === 'manager'
         allDays = Day.all.reverse
-        render json: { allDays: allDays, error: nil }
+        openDays =[]
+        openDays << Day.where(status: 'current')
+        openDays << Day.where(status: 'future')
+        render json: { allDays: allDays, openDays: openDays, error: nil }
       elsif current_user.role === 'driver'
         render json: { allDays: nil, error: 'You are not authorized' }
       end
