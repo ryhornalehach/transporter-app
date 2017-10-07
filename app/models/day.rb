@@ -1,3 +1,4 @@
 class Day < ApplicationRecord
-   has_many :records
+  validates :status, presence: true
+  has_many :records
 end

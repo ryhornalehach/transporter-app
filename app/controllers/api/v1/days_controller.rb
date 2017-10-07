@@ -48,6 +48,12 @@ class Api::V1::DaysController < ApplicationController
           record.pickup2_id = nil
           record.pickup3_id = nil
           record.save
+        elsif data['method'] === 'status'
+          day = Day.find(data['dayId'])
+          day.status = data['status']
+          binding.pry
+          day.save!
+          ######################################################
         end
       else
         render json: { error: 'You are not authorized' }
