@@ -29,7 +29,6 @@ class PickupEdit extends Component {
     })
     .then(response => response.json())
     .then(pickup => {
-      // debugger;
       this.setState({ name: pickup.pickup.name, pickupTime: pickup.pickup.pickup_time,
         appointmentTime: pickup.pickup.appointment_time, phone: pickup.pickup.phone,
         comment: pickup.pickup.comment, pickupAddress: pickup.pickup.pickup_address,

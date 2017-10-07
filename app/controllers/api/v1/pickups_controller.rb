@@ -21,13 +21,10 @@ class Api::V1::PickupsController < ApplicationController
 
   def index
     if current_user
-      if current_user.role == 'admin' || current_user.role == 'manager'
-        list_of_pickups = Pickup.order(pickup_time: :asc)
-        render json: { pickups: list_of_pickups }
-      else
         list_of_pickup_ids = []
         list_of_pickups = []
-        list_of_records = Record.where(driver_id: current_user.id).order(order: :asc)
+        today = Day.where(status: 'current')
+        list_of_records = Record.where(driver_id: current_user.id, day_id: today).order(order: :asc)
         list_of_records.each do |record|
           list_of_pickup_ids << record.pickup1_id
           list_of_pickup_ids << record.pickup2_id
@@ -39,8 +36,7 @@ class Api::V1::PickupsController < ApplicationController
         list_of_pickup_ids.each do |id|
             list_of_pickups << Pickup.find(id)
         end
-        render json: { pickups: list_of_pickups, records: list_of_records }
-      end
+      render json: { pickups: list_of_pickups, records: list_of_records }
     else
       render json: { error: 'You are not authorized' }
     end

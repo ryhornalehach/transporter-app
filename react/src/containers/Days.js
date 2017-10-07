@@ -24,10 +24,12 @@ class Days extends Component {
     let days;
     if (this.state.allDays[0]) {
       days = this.state.allDays.map((day, index) => {
-        let dayTile;
-        dayTile = new Date (day.date);
+        let dayTile = new Date (day.date).toUTCString();  // converting the date to Date object and to UTC string
+        let index2 = dayTile.indexOf('00:');            // getting the index of an element where to cut the date string
+        dayTile = dayTile.substring(0, index2);         // cutting the date string
+
         return (
-          <li key={index}><a href={`/days/${day.id}`}>{day.date}</a></li>
+          <li key={index}><a href={`/days/${day.id}`}>{dayTile}</a><span> - [{day.status}]</span><a href={`/days/${day.id}/edit`}> Edit</a></li>
         )
       })
     } else {

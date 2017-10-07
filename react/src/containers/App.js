@@ -8,6 +8,7 @@ import Drivers from './Drivers'
 import Driver from './Driver'
 import Days from './Days'
 import Day from './Day'
+import DayEdit from './DayEdit'
 import NewPickup from './NewPickup'
 import PickupEdit from './PickupEdit'
 
@@ -32,6 +33,7 @@ class App extends Component {
             <Route exact path='/drivers/:id' component={Driver} />
             <Route exact path='/days' component={Days} />
             <Route exact path='/days/:id' component={Day} />
+            <Route exact path='/days/:id/edit' component={DayEdit} />
             <Route exact path='/imports/new' component={NewPickup} />
           </Switch>
         </BrowserRouter>
