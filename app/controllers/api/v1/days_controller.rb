@@ -54,9 +54,7 @@ class Api::V1::DaysController < ApplicationController
         elsif data['method'] === 'status'
           day = Day.find(data['dayId'])
           day.status = data['status']
-          binding.pry
           day.save!
-          ######################################################
         end
       else
         render json: { error: 'You are not authorized' }

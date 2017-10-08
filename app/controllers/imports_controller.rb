@@ -27,7 +27,7 @@ class ImportsController < ApplicationController
               pickup_address: xlsx.row(i)[8], pickup_city: xlsx.row(i)[9],
               dropoff_address: xlsx.row(i)[10], dropoff_city: xlsx.row(i)[11],
               phone: phone )  # creating the Pickup with the information from the current row
-      Record.create(day_id: Day.last.id, pickup1_id: client.id ) # creating the Record corresponding to new Pickup
+      Record.create(day_id: Day.last.id, pickup1_id: client.id ) # creating the Record corresponding to new Pickup #############################
       i += 1
     end
     redirect_to root_path, notice: "Clients successfully imported"
