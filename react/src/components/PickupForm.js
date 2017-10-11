@@ -2,14 +2,18 @@ import React from 'react';
 import { Row, Input, Button, Icon } from 'react-materialize'
 
 const PickupForm = props => {
-  let daysMap = props.openDays.map( (day) => {
-    let dayString = new Date (day[0].date).toUTCString();  // converting the date to Date object and to UTC string
-    let index2 = dayString.indexOf('00:');            // getting the index of an element where to cut the date string
-    dayString = dayString.substring(0, index2);     // cutting the date string
-    return (
-        <option key={day[0].id} value={day[0].id} >{dayString}</option>   // creating options for the select field
-    )
-  })
+  let daysMap;
+  if (props.openDays) {
+    daysMap = props.openDays.map( (day) => {
+      let dayString = new Date (day[0].date).toUTCString();  // converting the date to Date object and to UTC string
+      let index2 = dayString.indexOf('00:');            // getting the index of an element where to cut the date string
+      dayString = dayString.substring(0, index2);     // cutting the date string
+      return (
+          <option key={day[0].id} value={day[0].id} >{dayString}</option>   // creating options for the select field
+      )
+    })
+  }
+
 
     return(
       <div>
