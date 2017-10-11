@@ -25,8 +25,9 @@ const AdminPickupTile = props => {
           <div className="card-content">
             <span className="card-title">{props.pickupInfo.name}</span>
             <p><b>At: </b>{props.pickupInfo.pickup_time} &nbsp; <b>Comments: </b>{props.pickupInfo.comment}</p>
+            <p><b>Phone: </b>{props.pickupInfo.phone}</p>
             <p><b>Pickup address: </b><a href={pickupLink}>{pickupAddressInformation}</a></p>
-            <p><b>Pickup address: </b><a href={dropoffLink}>{dropoffAddressInformation}</a></p>
+            <p><b>Dropoff address: </b><a href={dropoffLink}>{dropoffAddressInformation}</a></p>
             <div className="card-action">
 
               <div className="row">

@@ -40,6 +40,7 @@ const PickupTile = props => {
           <div className="card-content">
             <span className="card-title">{props.pickupInfo.name}</span>
             <p><b>At: </b>{props.pickupInfo.pickup_time} &nbsp; <b>Comments: </b>{props.pickupInfo.comment}</p>
+            <p><b>Phone: </b>{props.pickupInfo.phone}</p>
             <p><b>{typeOfAddress} address: </b><a href={link}>{addressInformation}</a></p>
             <div className="card-action">
 
