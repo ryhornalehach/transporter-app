@@ -7,7 +7,9 @@ class Api::V1::DaysController < ApplicationController
         allDays = Day.all.reverse
         openDays =[]
         openDays << Day.where(status: 'current')
-        openDays << Day.where(status: 'future')
+        if Day.where(status: 'future') != []
+          openDays << Day.where(status: 'future')
+        end
         render json: { allDays: allDays, openDays: openDays, error: nil }
       elsif current_user.role === 'driver'
         render json: { allDays: nil, error: 'You are not authorized' }
