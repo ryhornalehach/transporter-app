@@ -70,17 +70,17 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
     describe 'GET#show' do
 #  Acceptance Criteria:
 #  [x] If I am logged in as an admin, I can get the specified client's info
-      # it ('should return specified client information') do
-      #   sign_in admin
-      #   get :show, params: { id: client_1.id }
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(response.content_type).to eq("application/json")
-      #   expect(returned_json.length).to eq 2
-      #
-      #   expect(returned_json['pickup']['name']).to eq client_1.name
-      # end
+      it ('should return specified client information') do
+        sign_in admin
+        get :show, params: { id: client_1.id }
+      
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq("application/json")
+        expect(returned_json.length).to eq 2
+
+        expect(returned_json['pickup']['name']).to eq client_1.name
+      end
 
 
 #  [x] If I am not logged in the system, I can't get any user's information
