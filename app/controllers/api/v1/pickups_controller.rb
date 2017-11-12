@@ -107,6 +107,7 @@ class Api::V1::PickupsController < ApplicationController
               elsif data['stateType'] === 'statusChange' # changing the status of the cilent
                   pickup.status = data['pickupStatus']
                   pickup.save
+                  binding.pry
                   render json: pickup
               elsif data['stateType'] === 'edit'  # manual edit of the clien's info
                   pickup.update(name: data['currentPickup']['name'], comment: data['currentPickup']['comment'],
