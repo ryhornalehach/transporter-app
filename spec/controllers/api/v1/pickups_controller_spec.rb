@@ -23,6 +23,8 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
         name: "Samantha", pickup_time: '0830A', pickup_address: '11 Shine ln.',
         pickup_city: 'Beverly', dropoff_address: '2100 Dorchester ave.',
         dropoff_city: 'Dorchester')}
+  let!(:day_1) {Day.create( date: '11-11-2017', status: 'test' )}
+  let!(:record_1) {Record.create( pickup1_id: client_1.id, day_id: day_1.id, driver_id: user_1.id )}
 
     describe 'GET#index' do
 #  Acceptance Criteria:
@@ -151,15 +153,15 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
       end
 
 #  [x] If I am logged in as a driver, I can update the picked_up state of my client
-      # it "should update client picked_up state" do
-      #   data = { state: true, stateType: 'picked_up' }.to_json
-      #   sign_in user_1
-      #   put(:update , params: { id: client_1.id } , body: data)
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(returned_json['picked_up']).to eq true
-      # end
+      it "should update client picked_up state" do
+        data = { state: true, stateType: 'picked_up' }.to_json
+        sign_in user_1
+        put(:update , params: { id: client_1.id } , body: data)
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(returned_json['picked_up']).to eq true
+      end
 
 #  [x] If I am logged in as a driver, I can't update the picked_up state of client that is not assigned to me
       it "should not update client information" do
@@ -194,15 +196,15 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
       end
 
 #  [x] If I am logged in as a driver, I can update the dropped_off state of my client
-      # it "should update client dropped_off state" do
-      #   data = { state: true, stateType: 'dropped_off' }.to_json
-      #   sign_in user_1
-      #   put(:update , params: { id: client_1.id } , body: data)
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(returned_json['dropped_off']).to eq true
-      # end
+      it "should update client dropped_off state" do
+        data = { state: true, stateType: 'dropped_off' }.to_json
+        sign_in user_1
+        put(:update , params: { id: client_1.id } , body: data)
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(returned_json['dropped_off']).to eq true
+      end
 
     end
 end
