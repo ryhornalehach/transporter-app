@@ -23,37 +23,22 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
         name: "Samantha", pickup_time: '0830A', pickup_address: '11 Shine ln.',
         pickup_city: 'Beverly', dropoff_address: '2100 Dorchester ave.',
         dropoff_city: 'Dorchester')}
-  let!(:day_1) {Day.create( date: '11-11-2017', status: 'test' )}
+  let!(:day_1) {Day.create( date: '11-11-2017', status: 'current' )}
   let!(:record_1) {Record.create( pickup1_id: client_1.id, day_id: day_1.id, driver_id: user_1.id )}
 
     describe 'GET#index' do
 #  Acceptance Criteria:
-#  [x] If I am signed in as an admin, I can get the list of all clients
-      # it ('should return all pickups for admin') do
-      #   sign_in admin
-      #   get :index
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(response.content_type).to eq("application/json")
-      #   expect(returned_json.length).to eq 2
-      #   expect(returned_json[0]['name']).to eq client_1.name
-      #   expect(returned_json[0]['pickup_address']).to eq client_1.pickup_address
-      #   expect(returned_json[1]['name']).to eq client_2.name
-      #   expect(returned_json[1]['pickup_address']).to eq client_2.pickup_address
-      # end
 #  [x] If I am signed in as a user, I can get the list of assigned to me clients
-      # it ('should only return assigned to the driver clients') do
-      #   sign_in user_1
-      #   get :index
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(response.content_type).to eq("application/json")
-      #   expect(returned_json.length).to eq 1
-      #   expect(returned_json[0]['name']).to eq client_1.name
-      #   expect(returned_json[0]['pickup_address']).to eq client_1.pickup_address
-      # end
+      it ('should only return assigned to the current driver clients') do
+        sign_in user_1
+        get :index
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq("application/json")
+        expect(returned_json['pickups'].length).to eq 1
+        expect(returned_json['pickups'][0]['name']).to eq client_1.name
+      end
 
 #  [x] If I am not signed in as a user, I can't get the list of the clients
       it ('should return error if the user is not signed in') do
@@ -73,7 +58,7 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
       it ('should return specified client information') do
         sign_in admin
         get :show, params: { id: client_1.id }
-      
+
         returned_json = JSON.parse(response.body)
         expect(response.status).to eq 200
         expect(response.content_type).to eq("application/json")
@@ -95,20 +80,17 @@ RSpec.describe Api::V1::PickupsController, type: :controller do
       end
 
 #  [x] If I am logged in as a driver, I can get assigned to me client's information
-      # it ('should return error') do
-      #   sign_in user_1
-      #   get :show, params: { id: client_1.id }
-      #
-      #   returned_json = JSON.parse(response.body)
-      #   expect(response.status).to eq 200
-      #   expect(response.content_type).to eq("application/json")
-      #   binding.pry
-      #   expect(returned_json.length).to eq 2
-      #
-      #   expect(returned_json['driver']['first_name']).to eq user_1.first_name
-      #   expect(returned_json['driver']['last_name']).to eq user_1.last_name
-      #   expect(returned_json['pickup']['name']).to eq client_1.name
-      # end
+      it ('should return error') do
+        sign_in user_1
+        get :show, params: { id: client_1.id }
+
+        returned_json = JSON.parse(response.body)
+        expect(response.status).to eq 200
+        expect(response.content_type).to eq("application/json")
+        expect(returned_json.length).to eq 2
+
+        expect(returned_json['pickup']['name']).to eq client_1.name
+      end
 
 #  [x] If I am logged in as a driver, I can't get not assigned to me client's information
       it ('should return error') do
