@@ -25,3 +25,7 @@
 /coverage
 .yarn.lock
 .env
+
+#this file contais Google Sheets API secter token
+client_secret.json
+quickstart.rb
