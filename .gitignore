@@ -25,3 +25,5 @@
 /coverage
 .yarn.lock
 .env
+client_secret.json
+quickstart.rb
