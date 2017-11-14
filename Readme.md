@@ -35,4 +35,5 @@
     $ rails s
     $ npm start
   5. Test with Rspec:
+    $ rake db:test:prepare
     $ rake
