@@ -1,6 +1,4 @@
 ![Build Status](https://codeship.com/projects/6c375940-5823-0135-2444-6619bdfa7b53/status?branch=master)
-![Coverage Status](https://coveralls.io/repos/github/ryhornalehach/transporter-app/badge.svg?branch=master)
-![Code Climate](https://codeclimate.com/github/ryhornalehach/transporter-app.png)
 
 # Developed by: Ryhor (Greg) Nalehach
 # Hi, it's Greg. On my previous job in transportation company I always wanted to have an application that will help me to manage the drivers and at the same time will help the drivers to be more organized in their job. That’s why I built this Transporter App.

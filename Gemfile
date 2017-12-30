@@ -14,6 +14,7 @@ gem 'fog'   # cloud service library (needed for AWS)
 gem 'materialize-sass'  # adding materialize css
 gem 'will_paginate', '~> 3.1.0' # pagination gem
 gem "roo", "~> 2.7.0" # working with XLS files
+gem 'google-api-client' # working with Google Sheets
 
 group :development, :test do
   gem 'capybara'
